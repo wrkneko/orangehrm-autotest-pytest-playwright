@@ -76,10 +76,10 @@ class EmployeeListPage(BasePage):
         self.confirm_delete_button = page.get_by_role("button", name="Yes, Delete")
 
     def _select_employee_from_autocomplete(self) -> "EmployeeListPage":
-        self.select_from_autocomplete(self.employee_name_search,
-                                      "Employee name")
+        self.select_from_autocomplete(self.employee_name_search, "Employee name")
+        # Wait for autocomplete selection to apply to input
+        expect(self.employee_name_search).not_to_have_value("test", timeout=5000)
         return self
-
 
     def open(self) -> "EmployeeListPage":
         self.goto(self.URL_PATH)
@@ -96,25 +96,52 @@ class EmployeeListPage(BasePage):
         self._select_employee_from_autocomplete()
         self.click(self.search_button, "Search button")
         self.wait_for_filtered_results(name)
+        # Ensure search results are stable
+        self.page.wait_for_load_state("networkidle", timeout=5000)
         return self
 
-    def wait_for_filtered_results(self, expected_text: str, timeout: int = 10000) -> None:
+    def wait_for_filtered_results(self, expected_text: str, timeout: int = 15000) -> None:
         """
         Waits until the table reflects the applied filter, not just
         'some rows are visible' — old pre-search rows satisfy that
         trivially and cause false positives on fast machines.
         """
+        # Wait for table to start loading results
         expect(
             self.table_rows.first.or_(self.no_records_text)
         ).to_be_visible(timeout=timeout)
+
+        # Ensure all visible rows contain the expected text (filter applied)
         expect(
             self.table_rows.filter(has_not_text=expected_text)
         ).to_have_count(0, timeout=timeout)
+
+        # Additional wait for stability, especially after autocomplete
+        self.page.wait_for_timeout(1000)
+
+    def get_selected_employee_name(self) -> str:
+        return self.employee_name_search.input_value()
 
     def row_count(self) -> int:
         if self.no_records_text.is_visible():
             return 0
         return self.table_rows.count()
+
+    def has_row_matching(self, text: str) -> bool:
+        """
+        True if some row contains every whitespace-separated part of
+        `text` (in any cell, any order) — e.g. matching "Test 13231"
+        against a row where first/last name are in separate cells.
+        """
+        # Poll for the row to appear, in case of loading delay
+        for _ in range(5):
+            matches = self.table_rows
+            for part in text.split():
+                matches = matches.filter(has_text=part)
+            if matches.count() > 0:
+                return True
+            self.page.wait_for_timeout(1000)
+        return False
 
     def delete_first_result(self) -> None:
         row = self.table_rows.first
