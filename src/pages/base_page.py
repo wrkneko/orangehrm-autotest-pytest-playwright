@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 class BasePage:
     CHECKBOX_SELECTOR = ".oxd-checkbox-input"
-    
+
     def __init__(self, page: Page, base_url: str):
         self.page = page
         self.base_url = base_url.rstrip("/")
@@ -47,6 +47,31 @@ class BasePage:
         dropdown_locator.click()
         listbox = self.page.get_by_role("listbox").last
         listbox.get_by_role("option", name=option_text, exact=True).click()
+
+    def select_from_autocomplete(self, input_locator: Locator,
+                                 field_label: str = "value") -> None:
+        value_before = input_locator.input_value()
+        listbox = self.page.get_by_role("listbox")
+        expect(listbox).to_be_visible()
+        searching = listbox.get_by_text("Searching....")
+        if searching.count() > 0:
+            expect(searching).to_be_hidden(timeout=10000)
+        options = listbox.get_by_role("option")
+        expect(options.first).to_be_visible()
+        options.first.click()
+        value_after = input_locator.input_value()
+        assert value_after.strip(), f"{field_label} field is empty after selecting from autocomplete"
+        assert value_after != value_before, f"{field_label} field did not change after selecting from autocomplete"
+
+    def wait_for_autocomplete_options(self, listbox: Locator,
+                                      timeout: int = 10000) -> Locator:
+        expect(listbox).to_be_visible(timeout=timeout)
+        searching = listbox.get_by_text("Searching....")
+        if searching.count() > 0:
+            expect(searching).to_be_hidden(timeout=timeout)
+        options = listbox.get_by_role("option")
+        expect(options.first).to_be_visible(timeout=timeout)
+        return options
 
     def wait_for_toast(self, expected_text: str | None = None,
                        timeout: int = 5000):

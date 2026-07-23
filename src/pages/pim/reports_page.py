@@ -51,10 +51,8 @@ class ReportsPage(BasePage):
         return self
 
     def get_autocomplete_suggestions(self, timeout: int = 15000) -> list[str]:
-        options = self.autocomplete_dropdown.get_by_role("option")
-        expect(options.first).to_be_visible(timeout=timeout)
-        expect(self.autocomplete_dropdown.get_by_text(
-            "Searching....")).to_be_hidden(timeout=timeout)
+        options = self.wait_for_autocomplete_options(
+            self.autocomplete_dropdown, timeout)
         return options.all_text_contents()
 
     def reset_report(self) -> "ReportsPage":

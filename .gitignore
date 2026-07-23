@@ -18,3 +18,5 @@ allure-report/
 
 # logs
 *.log
+
+report.html

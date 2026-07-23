@@ -210,4 +210,4 @@ def test_search_for_non_existent_report_shows_no_results(authenticated_page,
     reports_page = ReportsPage(authenticated_page, base_url).open()
     reports_page.report_name_input.fill(report_name)
     reports_page.search_btn.click()
-    assert not reports_page.expect_report_absent(report_name)
+    reports_page.expect_report_absent(report_name)

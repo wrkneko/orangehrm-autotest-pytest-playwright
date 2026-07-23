@@ -100,17 +100,8 @@ class ReportsFormPage(BasePage):
         return self
 
     def select_employee_from_autocomplete(self) -> "ReportsFormPage":
-        listbox = self.page.get_by_role("listbox")
-        expect(listbox).to_be_visible()
-        searching = listbox.get_by_text("Searching....")
-        if searching.count() > 0:
-            expect(searching).to_be_hidden(timeout=10000)
-        options = listbox.get_by_role("option")
-        expect(options.first).to_be_visible()
-        options.first.click()
-        expect(self.employee_name_input).not_to_have_value("test")
-        value = self.employee_name_input.input_value()
-        assert value.strip(), "Employee name field is empty after selecting from autocomplete"
+        self.select_from_autocomplete(self.employee_name_input,
+                                      "Employee name")
         return self
 
     def expect_employee_field_visible(self) -> "ReportsFormPage":

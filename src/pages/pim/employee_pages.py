@@ -65,24 +65,21 @@ class EmployeeListPage(BasePage):
         super().__init__(page, base_url)
 
         self.employee_name_search = (
-            page.locator(
-                ".oxd-input-group",
-            )
-            .filter(has_text="Employee Name")
-            .locator("input")
-        )
-        self.employee_id_search = (
-            page.locator(
-                ".oxd-input-group",
-            )
+            page.locator(".oxd-input-group").filter(has_text="Employee Name").locator("input"))
+        self.employee_id_search = (page.locator(".oxd-input-group",)
             .filter(has_text="Employee Id")
-            .locator("input")
-        )
+            .locator("input"))
         self.search_button = page.get_by_role("button", name="Search")
         self.table_rows = page.locator(".oxd-table-card")
         self.no_records_text = page.get_by_text("No Records Found")
         self.delete_selected_button = page.get_by_role("button", name="Delete Selected")
         self.confirm_delete_button = page.get_by_role("button", name="Yes, Delete")
+
+    def _select_employee_from_autocomplete(self) -> "EmployeeListPage":
+        self.select_from_autocomplete(self.employee_name_search,
+                                      "Employee name")
+        return self
+
 
     def open(self) -> "EmployeeListPage":
         self.goto(self.URL_PATH)
@@ -96,7 +93,7 @@ class EmployeeListPage(BasePage):
 
     def search_by_name(self, name: str) -> "EmployeeListPage":
         self.fill(self.employee_name_search, name, "employee name search")
-        self.page.keyboard.press("Escape")
+        self._select_employee_from_autocomplete()
         self.click(self.search_button, "Search button")
         self.wait_for_filtered_results(name)
         return self
