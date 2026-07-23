@@ -46,7 +46,7 @@ class AddEmployeePage(BasePage):
                     raise
                 self._assign_unique_employee_id()
 
-        expect(self.page.get_by_role("heading",name="Personal Details")
+        expect(self.page.get_by_role("heading", name="Personal Details")
                ).to_be_visible(timeout=10000)
         expect(self.employee_id_input).to_be_visible(timeout=10000)
         expect(self.employee_id_input).not_to_have_value("", timeout=10000)
@@ -81,8 +81,8 @@ class EmployeeListPage(BasePage):
         self.search_button = page.get_by_role("button", name="Search")
         self.table_rows = page.locator(".oxd-table-card")
         self.no_records_text = page.get_by_text("No Records Found")
-        self.delete_selected_button = page.get_by_role("button",name="Delete Selected")
-        self.confirm_delete_button = page.get_by_role("button",name="Yes, Delete")
+        self.delete_selected_button = page.get_by_role("button", name="Delete Selected")
+        self.confirm_delete_button = page.get_by_role("button", name="Yes, Delete")
 
     def open(self) -> "EmployeeListPage":
         self.goto(self.URL_PATH)
@@ -91,20 +91,28 @@ class EmployeeListPage(BasePage):
     def search_by_id(self, employee_id: str) -> "EmployeeListPage":
         self.fill(self.employee_id_search, employee_id, "employee id search")
         self.click(self.search_button, "Search button")
-        self.wait_for_search_results()
+        self.wait_for_filtered_results(employee_id)
         return self
 
     def search_by_name(self, name: str) -> "EmployeeListPage":
-        self.fill(self.employee_name_search, name,"employee name search")
+        self.fill(self.employee_name_search, name, "employee name search")
         self.page.keyboard.press("Escape")
-        self.click(self.search_button,"Search button")
-        self.wait_for_search_results()
+        self.click(self.search_button, "Search button")
+        self.wait_for_filtered_results(name)
         return self
 
-    def wait_for_search_results(self) -> None:
+    def wait_for_filtered_results(self, expected_text: str, timeout: int = 10000) -> None:
+        """
+        Waits until the table reflects the applied filter, not just
+        'some rows are visible' — old pre-search rows satisfy that
+        trivially and cause false positives on fast machines.
+        """
         expect(
             self.table_rows.first.or_(self.no_records_text)
-        ).to_be_visible(timeout=10000)
+        ).to_be_visible(timeout=timeout)
+        expect(
+            self.table_rows.filter(has_not_text=expected_text)
+        ).to_have_count(0, timeout=timeout)
 
     def row_count(self) -> int:
         if self.no_records_text.is_visible():
@@ -114,7 +122,7 @@ class EmployeeListPage(BasePage):
     def delete_first_result(self) -> None:
         row = self.table_rows.first
         expect(row).to_be_visible()
-        row.locator(".oxd-checkbox-input").click()
+        self.select_row(row, "employee row checkbox")
         expect(self.delete_selected_button).to_be_enabled()
         self.click(self.delete_selected_button, "Delete Selected button")
         self.click(self.confirm_delete_button, "Confirm delete button")

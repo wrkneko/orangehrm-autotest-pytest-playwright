@@ -7,6 +7,7 @@ from src.pages.pim.reports_view_page import ReportsViewPage
 
 class ReportsPage(BasePage):
     URL_PATH = "/web/index.php/pim/viewDefinedPredefinedReports"
+    CHECKBOX_SELECTOR = "i.oxd-icon.bi-check"
 
     def __init__(self, page: Page, base_url: str):
         super().__init__(page, base_url)
@@ -23,9 +24,6 @@ class ReportsPage(BasePage):
 
     def _row(self, report_name: str):
         return self.table_rows.filter(has_text=report_name)
-
-    def _checkbox(self, report_name: str):
-        return self._row(report_name).locator("i.oxd-icon.bi-check")
 
     def _trash_btn(self, report_name: str):
         return self._row(report_name).locator("i.bi-trash")
@@ -49,10 +47,10 @@ class ReportsPage(BasePage):
     def search_report(self, report_name: str) -> "ReportsPage":
         self.report_name_input.fill(report_name)
         self.click(self._autocomplete_option(report_name))
-        self.search_btn.click()
+        self.click(self.search_btn)
         return self
 
-    def get_autocomplete_suggestions(self, timeout : int = 15000) -> list[str]:
+    def get_autocomplete_suggestions(self, timeout: int = 15000) -> list[str]:
         options = self.autocomplete_dropdown.get_by_role("option")
         expect(options.first).to_be_visible(timeout=timeout)
         expect(self.autocomplete_dropdown.get_by_text(
@@ -64,10 +62,7 @@ class ReportsPage(BasePage):
         return self
 
     def select_report(self, report_name: str) -> "ReportsPage":
-        self.click(
-            self._checkbox(report_name),
-            f"Select report: {report_name}"
-        )
+        self.select_row(self._row(report_name), f"Select report: {report_name}")
         return self
 
     def open_add_report(self) -> ReportsFormPage:
@@ -122,4 +117,3 @@ class ReportsPage(BasePage):
         expect(
             self._row(report_name)
         ).to_have_count(0, timeout=timeout)
-

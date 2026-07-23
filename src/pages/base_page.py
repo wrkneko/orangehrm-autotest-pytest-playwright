@@ -16,6 +16,8 @@ logger = logging.getLogger(__name__)
 
 
 class BasePage:
+    CHECKBOX_SELECTOR = ".oxd-checkbox-input"
+    
     def __init__(self, page: Page, base_url: str):
         self.page = page
         self.base_url = base_url.rstrip("/")
@@ -54,4 +56,11 @@ class BasePage:
 
         if expected_text:
             expect(toast).to_contain_text(expected_text, timeout=timeout)
+
+    def row_checkbox(self, row: Locator) -> Locator:
+        return row.locator(self.CHECKBOX_SELECTOR)
+
+    def select_row(self, row: Locator,
+                   description: str = "row checkbox") -> None:
+        self.click(self.row_checkbox(row), description)
 

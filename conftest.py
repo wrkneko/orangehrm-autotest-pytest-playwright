@@ -7,8 +7,10 @@ from playwright.sync_api import Playwright
 
 from src.api.api_client import ApiClient
 from src.pages.login_page import LoginPage
+from src.pages.pim.employee_pages import EmployeeListPage
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logger = logging.getLogger(__name__)
 
 
 def _load_config() -> dict:
@@ -84,3 +86,19 @@ def api_client(playwright: Playwright, base_url, credentials):
     client.login(credentials["username"], credentials["password"])
     yield client
     client.dispose()
+
+@pytest.fixture
+def employee_cleanup(authenticated_page, base_url):
+    employee_ids: list[str] = []
+
+    yield employee_ids.append
+
+    if not employee_ids:
+        return
+
+    list_page = EmployeeListPage(authenticated_page, base_url)
+    for employee_id in employee_ids:
+        try:
+            list_page.cleanup_employee(employee_id)
+        except Exception:
+            logger.exception("Failed to clean up employee %s", employee_id)
