@@ -1,0 +1,12 @@
+# CI environment config.
+#
+# conftest.py's config/base_url/credentials fixtures read TEST_ENV to pick
+# this file, but every value here is overridden at runtime by env vars set
+# in the workflow (BASE_URL, ORANGEHRM_USER, ORANGEHRM_PASSWORD), which pull
+# from GitHub Actions vars/secrets. Nothing sensitive should ever be
+# committed here — these are just non-secret fallbacks so the file loads
+# even if a var/secret isn't set for some reason.
+base_url: "https://opensource-demo.orangehrmlive.com"
+credentials:
+  username: ""
+  password: ""

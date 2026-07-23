@@ -1,0 +1,20 @@
+.idea
+.venv
+__pycache__/
+*.py[cod]
+
+# Playwright / test artifacts
+test-results/
+playwright-report/
+allure-results/
+allure-report/
+.pytest_cache/
+
+# env & secrets
+.env
+
+# OS
+.DS_Store
+
+# logs
+*.log
