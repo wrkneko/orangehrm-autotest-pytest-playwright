@@ -1,3 +1,7 @@
+
+# Exists for local setup to be working.
+# DO NOT add such config files to CI on real projects code
+
 base_url: "https://opensource-demo.orangehrmlive.com"
 credentials:
   username: "Admin"
