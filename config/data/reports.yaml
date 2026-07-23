@@ -1,0 +1,3 @@
+reports:
+  existing: "Employee Contact info report"
+  non_existent: "Definitely Not A Real Report ZZZ"
