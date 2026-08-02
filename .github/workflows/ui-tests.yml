@@ -48,7 +48,7 @@ jobs:
         run: playwright install --with-deps chromium
 
       - name: Run smoke tests
-        run: pytest -m smoke --tracing=retain-on-failure --html=report.html --self-contained-html --css=config/report/report.css
+        run: pytest -m smoke --tracing=retain-on-failure --html=report.html --self-contained-html --css=config/report/report.css --alluredir=allure-results
 
       - name: Upload test report
         if: always()
@@ -56,6 +56,32 @@ jobs:
         with:
           name: smoke-report
           path: report.html
+          retention-days: 14
+
+      - name: Add Allure metadata
+        if: always()
+        run: |
+          mkdir -p allure-results
+          cat > allure-results/environment.properties <<'EOF'
+          BASE_URL=${{ vars.BASE_URL }}
+          TEST_ENV=ci
+          Browser=chromium
+          Suite=smoke
+          EOF
+          cat > allure-results/executor.json <<'EOF'
+          {"name":"GitHub Actions","type":"github",
+           "buildName":"smoke #${{ github.run_number }}",
+           "buildOrder":${{ github.run_number }},
+           "buildUrl":"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+           "reportName":"OrangeHRM smoke"}
+          EOF
+
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: smoke-allure-results
+          path: allure-results
           retention-days: 14
 
       - name: Upload Playwright traces on failure
@@ -97,9 +123,9 @@ jobs:
         run: |
           MARKER="${{ github.event.inputs.marker }}"
           if [ -z "$MARKER" ]; then
-            pytest --tracing=retain-on-failure --html=report.html --self-contained-html --css=config/report/report.css
+            pytest --tracing=retain-on-failure --html=report.html --self-contained-html --css=config/report/report.css --alluredir=allure-results
           else
-            pytest -m "$MARKER" --tracing=retain-on-failure --html=report.html --self-contained-html --css=config/report/report.css
+            pytest -m "$MARKER" --tracing=retain-on-failure --html=report.html --self-contained-html --css=config/report/report.css --alluredir=allure-results
           fi
 
       - name: Upload test report
@@ -108,6 +134,32 @@ jobs:
         with:
           name: regression-report
           path: report.html
+          retention-days: 14
+
+      - name: Add Allure metadata
+        if: always()
+        run: |
+          mkdir -p allure-results
+          cat > allure-results/environment.properties <<'EOF'
+          BASE_URL=${{ vars.BASE_URL }}
+          TEST_ENV=ci
+          Browser=chromium
+          Suite=regression
+          EOF
+          cat > allure-results/executor.json <<'EOF'
+          {"name":"GitHub Actions","type":"github",
+           "buildName":"regression #${{ github.run_number }}",
+           "buildOrder":${{ github.run_number }},
+           "buildUrl":"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+           "reportName":"OrangeHRM regression"}
+          EOF
+
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: regression-allure-results
+          path: allure-results
           retention-days: 14
 
       - name: Upload Playwright traces on failure
@@ -122,6 +174,11 @@ jobs:
     # Publishes the just-generated report.html to GitHub Pages, keeping
     # every previous run's report browsable via a version-picker index.
     name: Publish report to Pages
+    # Shared with allure.yml — both push to gh-pages, so they queue rather
+    # than race. Never cancel in progress: that would drop a published report.
+    concurrency:
+      group: gh-pages-publish
+      cancel-in-progress: false
     needs: [smoke, regression]
     if: always() && (needs.smoke.result != 'skipped' || needs.regression.result != 'skipped')
     runs-on: ubuntu-latest
@@ -185,9 +242,7 @@ jobs:
 
       - name: Rebuild version-picker index.html
         run: |
-          python3 config/report/build_index.py \
-            --reports-dir gh-pages/reports \
-            --output gh-pages/index.html
+          python3 config/report/build_index.py --pages-dir gh-pages
 
       - name: Commit and push report
         run: |
