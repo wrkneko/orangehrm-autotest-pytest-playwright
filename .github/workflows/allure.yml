@@ -1,15 +1,22 @@
 name: Allure Report
 
-# Starts only after UI Tests has finished, and picks up the allure-results
-# that run uploaded. Keeping this in its own file means the test workflow
-# stays about running tests, and this one about rendering them.
+# Normally starts after UI Tests finishes and picks up the allure-results
+# that run uploaded. workflow_dispatch lets you re-render any past run
+# without re-running the tests — useful when this workflow itself is what
+# needs debugging.
 on:
   workflow_run:
     workflows: ["UI Tests"]
     types: [completed]
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "UI Tests run ID to render (blank = most recent run)"
+        required: false
+        default: ""
 
 # Shared with the publish job in ui-tests.yml. Both workflows push to the
-# gh-pages branch, in queue. cancel-in-progress must
+# gh-pages branch, so they queue instead of racing. cancel-in-progress must
 # stay false here — a cancelled publish would silently drop a report.
 concurrency:
   group: gh-pages-publish
@@ -17,14 +24,14 @@ concurrency:
 
 permissions:
   contents: write
-  actions: read
+  actions: read # required to read artifacts from another run
 
 jobs:
   publish-allure:
     name: Build and publish Allure report
     # A cancelled test run has nothing worth rendering. Failed runs do — a
     # red Allure report is the interesting one.
-    if: github.event.workflow_run.conclusion != 'cancelled'
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion != 'cancelled'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -33,35 +40,64 @@ jobs:
         with:
           sparse-checkout: config/report
 
-      - name: Download allure-results from the test run
-        uses: actions/download-artifact@v5
-        with:
-          pattern: "*-allure-results"
-          path: artifacts
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Identify the run
-        id: meta
+      - name: Resolve the test run
+        id: run
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
         run: |
-          dir="$(find artifacts -mindepth 1 -maxdepth 1 -type d | head -n 1)"
-          if [ -z "$dir" ]; then
-            echo "::error::No *-allure-results artifact found in run ${{ github.event.workflow_run.id }}."
+          run_id="${{ github.event.inputs.run_id || github.event.workflow_run.id }}"
+          if [ -z "$run_id" ]; then
+            # No run handed to us: dispatched without an ID, or this workflow
+            # was temporarily put on a push trigger to test it before merging.
+            echo "No run ID given; falling back to the latest UI Tests run."
+            run_id="$(gh api "repos/$REPO/actions/workflows/ui-tests.yml/runs?status=completed&per_page=1" --jq '.workflow_runs[0].id // empty')"
+          fi
+          if [ -z "$run_id" ]; then
+            echo "::error::Could not determine which UI Tests run to render."
             exit 1
           fi
+          echo "Rendering artifacts from run $run_id"
 
-          kind="$(basename "$dir")"
-          kind="${kind%-allure-results}"
-          # Reuse the test run's number so this entry lines up with the
-          # pytest-html one published for the same run.
-          label="$(date -u -d '${{ github.event.workflow_run.created_at }}' +'%Y-%m-%d_%H-%M')-run${{ github.event.workflow_run.run_number }}"
+          # Log everything the run produced, so a miss is obvious in the log
+          # rather than a bare 'artifact not found'.
+          names="$(gh api "repos/$REPO/actions/runs/$run_id/artifacts" --paginate --jq '.artifacts[].name' || true)"
+          echo "Artifacts in that run:"
+          if [ -z "$names" ]; then echo "  (none)"; else echo "$names" | sed 's/^/  - /'; fi
 
-          mv "$dir" results
+          name="$(printf '%s\n' "$names" | grep -- '-allure-results$' | head -n 1 || true)"
+          if [ -z "$name" ]; then
+            echo "::warning::No *-allure-results artifact in run $run_id. Either that run predates the allure-results upload, or the tests never got far enough to write any. Nothing to publish."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Read run metadata from the API so dispatch and workflow_run behave
+          # identically.
+          created="$(gh api "repos/$REPO/actions/runs/$run_id" --jq '.created_at')"
+          number="$(gh api "repos/$REPO/actions/runs/$run_id" --jq '.run_number')"
+          kind="${name%-allure-results}"
+          label="$(date -u -d "$created" +'%Y-%m-%d_%H-%M')-run${number}"
+
+          echo "found=true" >> "$GITHUB_OUTPUT"
+          echo "artifact=$name" >> "$GITHUB_OUTPUT"
+          echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
           echo "kind=$kind" >> "$GITHUB_OUTPUT"
           echo "label=$label" >> "$GITHUB_OUTPUT"
-          echo "Publishing $kind report as $label"
+          echo "run_number=$number" >> "$GITHUB_OUTPUT"
+          echo "Will publish $kind as $label"
+
+      - name: Download allure-results
+        if: steps.run.outputs.found == 'true'
+        uses: actions/download-artifact@v5
+        with:
+          name: ${{ steps.run.outputs.artifact }}
+          path: results
+          run-id: ${{ steps.run.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout or initialize gh-pages branch
+        if: steps.run.outputs.found == 'true'
         run: |
           rm -rf gh-pages
           mkdir gh-pages
@@ -78,31 +114,39 @@ jobs:
       - name: Restore Allure history
         # Trends and retry history only appear if the previous report's
         # history/ folder is seeded into the new results before generating.
+        if: steps.run.outputs.found == 'true'
         run: |
-          src="gh-pages/allure-history/${{ steps.meta.outputs.kind }}"
+          src="gh-pages/allure-history/${{ steps.run.outputs.kind }}"
           if [ -d "$src" ]; then
             mkdir -p results/history
             cp -r "$src/." results/history/
             echo "Seeded history from $src"
           else
-            echo "No history for ${{ steps.meta.outputs.kind }} yet; starting a new trend."
+            echo "No history for ${{ steps.run.outputs.kind }} yet; starting a new trend."
           fi
 
       - name: Set up Java
+        if: steps.run.outputs.found == 'true'
         uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "21"
 
       - name: Install Allure CLI
+        if: steps.run.outputs.found == 'true'
         run: npm install -g allure-commandline@2.43.0
 
       - name: Generate Allure report
-        run: allure generate results --clean -o allure-report
+        if: steps.run.outputs.found == 'true'
+        run: |
+          echo "Result files: $(find results -name '*-result.json' | wc -l)"
+          allure generate results --clean -o allure-report
+          test -f allure-report/index.html
 
       - name: Publish report and carry history forward
+        if: steps.run.outputs.found == 'true'
         run: |
-          dest="gh-pages/allure/${{ steps.meta.outputs.kind }}/${{ steps.meta.outputs.label }}"
+          dest="gh-pages/allure/${{ steps.run.outputs.kind }}/${{ steps.run.outputs.label }}"
           mkdir -p "$dest"
           cp -r allure-report/. "$dest/"
 
@@ -112,23 +156,21 @@ jobs:
           echo "Status: $(cat "$dest/status.txt")"
 
           # Kept outside gh-pages/allure/ so the index does not list it as a run.
-          hist="gh-pages/allure-history/${{ steps.meta.outputs.kind }}"
+          hist="gh-pages/allure-history/${{ steps.run.outputs.kind }}"
           rm -rf "$hist"
           mkdir -p "$hist"
           cp -r allure-report/history/. "$hist/"
 
       - name: Rebuild index
+        if: steps.run.outputs.found == 'true'
         run: python3 config/report/build_index.py --pages-dir gh-pages
 
-      - name: Configure git identity
+      - name: Commit and push report
+        if: steps.run.outputs.found == 'true'
         run: |
           cd gh-pages
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Commit and push report
-        run: |
-          cd gh-pages
           git add -A
-          git commit -q -m "Publish ${{ steps.meta.outputs.kind }} Allure report (run ${{ github.event.workflow_run.run_number }})" || echo "Nothing to commit"
+          git commit -q -m "Publish ${{ steps.run.outputs.kind }} Allure report (run ${{ steps.run.outputs.run_number }})" || echo "Nothing to commit"
           git push -q origin gh-pages --force-with-lease || git push -q origin gh-pages
