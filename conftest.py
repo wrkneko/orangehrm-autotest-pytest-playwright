@@ -145,5 +145,5 @@ def pytest_runtest_makereport(item, call):
         feedback = ai_response.choices[0].message.content
 
         extra = getattr(report,"extra", [])
-        extra.append(pytest_html.extras.text(feedback, name="AI Feedback"))
+        extra.append(pytest_html.extras.html(f"<div><b>AI Feedback:</b><br>{feedback}</div>"))
         report.extra = extra
