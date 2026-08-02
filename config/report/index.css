@@ -1,0 +1,245 @@
+/* ==========================================================================
+   Bento grid for the published-reports index page.
+   Inlined into gh-pages/index.html by config/report/build_index.py.
+   Design tokens are deliberately mirrored in config/report/report.css so both pages
+   read as one system — keep them in sync when changing the palette.
+   ========================================================================== */
+
+* { box-sizing: border-box; }
+
+:root {
+  --bg: #e9ebf2;
+  --tile: #ffffff;
+  --line: rgba(20, 22, 43, 0.09);
+  --ink: #14162b;
+  --muted: #6b7186;
+  --accent: #4d5ae8;
+  --pass: #147a45;
+  --pass-soft: #dcf3e6;
+  --fail: #cf2b2b;
+  --fail-soft: #fde3e3;
+  --idle: #6b7186;
+  --idle-soft: #eceef5;
+
+  --radius: 18px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 8px 24px rgba(16, 24, 40, 0.06);
+  --sans: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  --mono: 'Fira Code', 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+body {
+  margin: 0;
+  padding: 32px 20px 64px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(112px, auto);
+  gap: 14px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 22px;
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* --- hero ---------------------------------------------------------------- */
+
+.hero {
+  grid-column: span 2;
+  grid-row: span 2;
+  gap: 18px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.hero .sub {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.hero__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hero__when {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+/* --- counters ------------------------------------------------------------ */
+
+.stat { gap: 10px; }
+
+.stat__num {
+  font-family: var(--mono);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.stat__key {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stat--pass .stat__num { color: var(--pass); }
+.stat--fail .stat__num { color: var(--fail); }
+
+/* --- run cards ----------------------------------------------------------- */
+
+.card {
+  gap: 12px;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 26px rgba(16, 24, 40, 0.12);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.card--featured { grid-column: span 2; }
+.card--featured .card__date { font-size: 1.35rem; }
+
+.card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.card__date {
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.card__meta {
+  margin-top: 2px;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.card__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  align-self: flex-start;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* --- badges and status colours ------------------------------------------- */
+
+.tag {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.tag--smoke { background: var(--pass); }
+.tag--regression { background: var(--accent); }
+
+.pin {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.s--ok { background: var(--pass-soft); color: var(--pass); }
+.s--fail { background: var(--fail-soft); color: var(--fail); }
+.s--unknown { background: var(--idle-soft); color: var(--idle); }
+
+/* --- empty state --------------------------------------------------------- */
+
+.empty {
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+}
+
+/* --- responsive ---------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero,
+  .card--featured { grid-column: span 2; }
+  .hero { grid-row: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+  .card:hover { transform: none; }
+}
