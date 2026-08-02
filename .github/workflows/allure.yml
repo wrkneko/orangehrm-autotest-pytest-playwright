@@ -185,13 +185,13 @@ jobs:
             pages_url="https://${{ github.repository_owner }}.github.io/${GITHUB_REPOSITORY#*/}/"
           fi
 
+          payload=$(printf '{"status":"%s","kind":"%s","pages_url":"%s","run_url":"%s","run_number":"%s"}' \
+            "$status" \
+            "${{ steps.run.outputs.kind }}" \
+            "$pages_url" \
+            "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ steps.run.outputs.run_id }}" \
+            "${{ steps.run.outputs.run_number }}")
+
           curl -sf -X POST "${{ secrets.N8N_WEBHOOK_URL }}" \
             -H "Content-Type: application/json" \
-            -d @- <<EOF
-          {
-            "status": "$status",
-            "kind": "${{ steps.run.outputs.kind }}",
-            "pages_url": "$pages_url",
-            "run_url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ steps.run.outputs.run_id }}",
-            "run_number": "${{ steps.run.outputs.run_number }}"
-          }
+            -d "$payload"
