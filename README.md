@@ -309,12 +309,6 @@ A few choices worth calling out, since they are the parts that usually break:
   of the report directory, not of the results — skip this and every report
   looks like the first one ever generated.
 
-### Badge
-
-```markdown
-![UI Tests](https://github.com/wrkneko/orangehrm-autotest-pytest-playwright/actions/workflows/ui-tests.yml/badge.svg)
-```
-
 ## A note on the target environment
 
 `opensource-demo.orangehrmlive.com` is a **public, shared** instance. Anyone
