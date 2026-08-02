@@ -74,6 +74,8 @@ jobs:
       BASE_URL: ${{ vars.BASE_URL }}
       ORANGEHRM_USER: ${{ secrets.ORANGEHRM_USER }}
       ORANGEHRM_PASSWORD: ${{ secrets.ORANGEHRM_PASSWORD }}
+      AI_TOKEN: ${{ secrets.AI_TOKEN }}
+      AI_MODEL: ${{ secrets.AI_MODEL }}
     steps:
       - uses: actions/checkout@v5
 
