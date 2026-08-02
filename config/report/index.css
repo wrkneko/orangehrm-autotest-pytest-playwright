@@ -60,30 +60,102 @@ body {
   box-shadow: var(--shadow);
 }
 
-/* --- sections ------------------------------------------------------------ */
+/* --- format switcher ------------------------------------------------------
+   One tab per report format instead of stacked sections. The state lives in
+   hidden radios that sit *before* the bar and the panels, so the whole thing
+   works with CSS alone — no script in the generated page.
 
-.section { margin-top: 34px; }
+   The id/class pairs below mirror the roots in build_index.py's SECTIONS
+   ("reports", "allure"); add a section there and add its pair here.
+   -------------------------------------------------------------------------- */
 
-.section__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 12px;
-  margin: 0 4px 14px;
+.tabs { margin-top: 34px; }
+
+/* Visually hidden, still focusable — keyboard arrow keys switch tabs. */
+.tabs__radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-.section__head h2 {
-  margin: 0;
+.tabs__bar {
+  display: inline-flex;
+  gap: 4px;
+  margin: 0 4px 16px;
+  padding: 4px;
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+}
+
+.tabs__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
   font-family: var(--mono);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--muted);
+  transition: background 0.14s ease, color 0.14s ease;
+}
+
+.tabs__btn:hover {
+  background: var(--idle-soft);
   color: var(--ink);
 }
 
-.section__head p {
-  margin: 0;
+.tabs__count {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--idle-soft);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+#tab-reports:checked ~ .tabs__bar label[for="tab-reports"],
+#tab-allure:checked ~ .tabs__bar label[for="tab-allure"] {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+#tab-reports:checked ~ .tabs__bar label[for="tab-reports"] .tabs__count,
+#tab-allure:checked ~ .tabs__bar label[for="tab-allure"] .tabs__count {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+#tab-reports:focus-visible ~ .tabs__bar label[for="tab-reports"],
+#tab-allure:focus-visible ~ .tabs__bar label[for="tab-allure"] {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.panel { display: none; }
+
+#tab-reports:checked ~ .panel--reports,
+#tab-allure:checked ~ .panel--allure {
+  display: block;
+}
+
+.panel__blurb {
+  margin: 0 4px 14px;
   font-size: 0.82rem;
   color: var(--muted);
 }
@@ -265,9 +337,19 @@ body {
   .hero,
   .card--featured { grid-column: span 2; }
   .hero { grid-row: auto; }
+
+  /* The pill bar stretches edge to edge and the tabs share the width. */
+  .tabs__bar { display: flex; width: auto; }
+  .tabs__btn {
+    flex: 1;
+    justify-content: center;
+    padding: 8px 10px;
+    letter-spacing: 0.08em;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .card { transition: none; }
   .card:hover { transform: none; }
+  .tabs__btn { transition: none; }
 }
