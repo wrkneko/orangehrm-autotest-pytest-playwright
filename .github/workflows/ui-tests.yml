@@ -149,22 +149,18 @@ jobs:
           name: ${{ steps.meta.outputs.kind }}-report
           path: downloaded-report
 
-      - name: Checkout gh-pages branch
-        uses: actions/checkout@v5
-        with:
-          ref: gh-pages
-          path: gh-pages
-        continue-on-error: true
-
-      - name: Create gh-pages branch if it doesn't exist yet
+      - name: Checkout or initialize gh-pages branch
         run: |
-          if [ ! -d gh-pages/.git ]; then
-            rm -rf gh-pages
-            mkdir gh-pages
-            cd gh-pages
-            git init -q
+          rm -rf gh-pages
+          mkdir gh-pages
+          cd gh-pages
+          git init -q
+          git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git fetch -q origin gh-pages || true
+          if git rev-parse --verify -q origin/gh-pages >/dev/null; then
+            git checkout -q -b gh-pages origin/gh-pages
+          else
             git checkout -q -b gh-pages
-            git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           fi
 
       - name: Configure git identity
