@@ -67,30 +67,102 @@ body {
   box-shadow: var(--shadow);
 }
 
-/* --- sections ------------------------------------------------------------ */
+/* --- format switcher ------------------------------------------------------
+   One tab per report format instead of stacked sections. The state lives in
+   hidden radios that sit *before* the bar and the panels, so the whole thing
+   works with CSS alone — no script in the generated page.
 
-.section { margin-top: 34px; }
+   The id/class pairs below mirror the roots in build_index.py's SECTIONS
+   ("reports", "allure"); add a section there and add its pair here.
+   -------------------------------------------------------------------------- */
 
-.section__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 12px;
-  margin: 0 4px 14px;
+.tabs { margin-top: 34px; }
+
+/* Visually hidden, still focusable — keyboard arrow keys switch tabs. */
+.tabs__radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-.section__head h2 {
-  margin: 0;
+.tabs__bar {
+  display: inline-flex;
+  gap: 4px;
+  margin: 0 4px 16px;
+  padding: 4px;
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+}
+
+.tabs__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
   font-family: var(--mono);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--muted);
+  transition: background 0.14s ease, color 0.14s ease;
+}
+
+.tabs__btn:hover {
+  background: var(--idle-soft);
   color: var(--ink);
 }
 
-.section__head p {
-  margin: 0;
+.tabs__count {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--idle-soft);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+#tab-reports:checked ~ .tabs__bar label[for="tab-reports"],
+#tab-allure:checked ~ .tabs__bar label[for="tab-allure"] {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+#tab-reports:checked ~ .tabs__bar label[for="tab-reports"] .tabs__count,
+#tab-allure:checked ~ .tabs__bar label[for="tab-allure"] .tabs__count {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+#tab-reports:focus-visible ~ .tabs__bar label[for="tab-reports"],
+#tab-allure:focus-visible ~ .tabs__bar label[for="tab-allure"] {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.panel { display: none; }
+
+#tab-reports:checked ~ .panel--reports,
+#tab-allure:checked ~ .panel--allure {
+  display: block;
+}
+
+.panel__blurb {
+  margin: 0 4px 14px;
   font-size: 0.82rem;
   color: var(--muted);
 }
@@ -272,22 +344,34 @@ body {
   .hero,
   .card--featured { grid-column: span 2; }
   .hero { grid-row: auto; }
+
+  /* The pill bar stretches edge to edge and the tabs share the width. */
+  .tabs__bar { display: flex; width: auto; }
+  .tabs__btn {
+    flex: 1;
+    justify-content: center;
+    padding: 8px 10px;
+    letter-spacing: 0.08em;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .card { transition: none; }
   .card:hover { transform: none; }
+  .tabs__btn { transition: none; }
 }
 </style>
 </head>
 <body>
 <div class="wrap">
 <div class="bento">
-<section class="tile hero"><div><h1>OrangeHRM Autotest Reports</h1><p class="sub">Every published run, newest first. Open a tile for the full HTML report.</p></div><div class="hero__state s--fail"><i class="dot"></i>smoke · failed</div><div class="hero__when">2026-08-02 17:54</div></section>
-<div class="tile stat"><div class="stat__num">11</div><div class="stat__key">runs</div></div><div class="tile stat stat--pass"><div class="stat__num">0</div><div class="stat__key">passed</div></div><div class="tile stat stat--fail"><div class="stat__num">9</div><div class="stat__key">failed</div></div><div class="tile stat"><div class="stat__num">0</div><div class="stat__key">regression</div></div>
+<section class="tile hero"><div><h1>OrangeHRM Autotest Reports</h1><p class="sub">Every published run, newest first. Open a tile for the full HTML report.</p></div><div class="hero__state s--ok"><i class="dot"></i>smoke · passed</div><div class="hero__when">2026-08-02 18:42</div></section>
+<div class="tile stat"><div class="stat__num">12</div><div class="stat__key">runs</div></div><div class="tile stat stat--pass"><div class="stat__num">1</div><div class="stat__key">passed</div></div><div class="tile stat stat--fail"><div class="stat__num">9</div><div class="stat__key">failed</div></div><div class="tile stat"><div class="stat__num">0</div><div class="stat__key">regression</div></div>
 </div>
-<section class="section"><div class="section__head"><h2>pytest-html</h2><p>One self-contained HTML file per run, themed with a custom stylesheet.</p></div><div class="bento">
-<a class="tile card card--featured" href="reports/smoke/2026-08-02_17-54-run38/index.html"><div class="card__top"><span class="tag tag--smoke">smoke</span><span class="pin">latest</span></div><div class="card__date">2026-08-02</div><div class="card__meta">17:54 · run 38</div><div class="card__status s--fail"><i class="dot"></i>failed</div></a>
+<section class="tabs"><input class="tabs__radio" type="radio" name="format" id="tab-reports" checked><input class="tabs__radio" type="radio" name="format" id="tab-allure"><div class="tabs__bar" role="tablist"><label class="tabs__btn" for="tab-reports">pytest-html<span class="tabs__count">11</span></label><label class="tabs__btn" for="tab-allure">Allure<span class="tabs__count">1</span></label></div>
+<div class="panel panel--reports"><p class="panel__blurb">One self-contained HTML file per run, themed with a custom stylesheet.</p><div class="bento">
+<a class="tile card card--featured" href="reports/smoke/2026-08-02_18-42-run39/index.html"><div class="card__top"><span class="tag tag--smoke">smoke</span><span class="pin">latest</span></div><div class="card__date">2026-08-02</div><div class="card__meta">18:42 · run 39</div><div class="card__status s--ok"><i class="dot"></i>passed</div></a>
+<a class="tile card" href="reports/smoke/2026-08-02_17-54-run38/index.html"><div class="card__top"><span class="tag tag--smoke">smoke</span></div><div class="card__date">2026-08-02</div><div class="card__meta">17:54 · run 38</div><div class="card__status s--fail"><i class="dot"></i>failed</div></a>
 <a class="tile card" href="reports/smoke/2026-08-02_17-43-run37/index.html"><div class="card__top"><span class="tag tag--smoke">smoke</span></div><div class="card__date">2026-08-02</div><div class="card__meta">17:43 · run 37</div><div class="card__status s--fail"><i class="dot"></i>failed</div></a>
 <a class="tile card" href="reports/smoke/2026-08-02_17-42-run36/index.html"><div class="card__top"><span class="tag tag--smoke">smoke</span></div><div class="card__date">2026-08-02</div><div class="card__meta">17:42 · run 36</div><div class="card__status s--fail"><i class="dot"></i>failed</div></a>
 <a class="tile card" href="reports/smoke/2026-08-02_17-37-run35/index.html"><div class="card__top"><span class="tag tag--smoke">smoke</span></div><div class="card__date">2026-08-02</div><div class="card__meta">17:37 · run 35</div><div class="card__status s--fail"><i class="dot"></i>failed</div></a>
@@ -297,10 +381,10 @@ body {
 <a class="tile card" href="reports/smoke/2026-08-02_15-10-run30/index.html"><div class="card__top"><span class="tag tag--smoke">smoke</span></div><div class="card__date">2026-08-02</div><div class="card__meta">15:10 · run 30</div><div class="card__status s--fail"><i class="dot"></i>failed</div></a>
 <a class="tile card" href="reports/smoke/2026-08-02_15-03-run29/index.html"><div class="card__top"><span class="tag tag--smoke">smoke</span></div><div class="card__date">2026-08-02</div><div class="card__meta">15:03 · run 29</div><div class="card__status s--unknown"><i class="dot"></i>unknown</div></a>
 <a class="tile card" href="reports/smoke/2026-08-02_14-53-run28/index.html"><div class="card__top"><span class="tag tag--smoke">smoke</span></div><div class="card__date">2026-08-02</div><div class="card__meta">14:53 · run 28</div><div class="card__status s--unknown"><i class="dot"></i>unknown</div></a>
-</div></section>
-<section class="section"><div class="section__head"><h2>Allure</h2><p>Steps, attachments and trends across runs, built by the Allure CLI.</p></div><div class="bento">
+</div></div>
+<div class="panel panel--allure"><p class="panel__blurb">Steps, attachments and trends across runs, built by the Allure CLI.</p><div class="bento">
 <a class="tile card card--featured" href="allure/smoke/2026-08-02_17-51-run38/index.html"><div class="card__top"><span class="tag tag--smoke">smoke</span><span class="pin">latest</span></div><div class="card__date">2026-08-02</div><div class="card__meta">17:51 · run 38</div><div class="card__status s--fail"><i class="dot"></i>failed</div></a>
-</div></section>
+</div></div></section>
 </div>
 </body>
 </html>
