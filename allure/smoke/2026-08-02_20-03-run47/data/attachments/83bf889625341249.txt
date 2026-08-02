@@ -1,0 +1,12 @@
+2026-08-02 20:04:43,007 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+2026-08-02 20:04:45,089 [INFO] Filling 'username field': Admin
+2026-08-02 20:04:45,408 [INFO] Filling 'password field': admin123
+2026-08-02 20:04:45,418 [INFO] Clicking: Login button
+2026-08-02 20:04:49,128 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports
+2026-08-02 20:04:49,772 [INFO] Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports'> selector='internal:role=button[name="Add"i]'>
+2026-08-02 20:04:51,276 [INFO] Filling 'Report name': Report Receive 38982
+2026-08-02 20:04:51,605 [INFO] Clicking: Add selection criteria
+2026-08-02 20:04:51,647 [INFO] Filling 'Employee name': test
+2026-08-02 20:04:53,187 [INFO] Clicking: Add display field
+2026-08-02 20:04:53,224 [INFO] Clicking: Save report
+2026-08-02 20:04:53,607 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports

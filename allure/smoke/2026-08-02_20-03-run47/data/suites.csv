@@ -1,0 +1,7 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","1937","test_successful_login[chromium]","tests.ui","2026-08-02","passed","2026-08-02","","test_login","",""
+"","5664","test_create_report[chromium]","tests.ui","2026-08-02","passed","2026-08-02","","test_reports","",""
+"","6081","test_create_and_delete_report[chromium]","tests.ui","2026-08-02","passed","2026-08-02","","test_reports","",""
+"","0","test_reset_password[chromium]","tests.ui","2026-08-02","skipped","2026-08-02","","test_reset_pwd","",""
+"","0","test_get_employees_returns_data","tests.api","2026-08-02","skipped","2026-08-02","","test_employees_api","",""
+"","1031","test_page_loads[chromium]","tests.ui","2026-08-02","passed","2026-08-02","","test_reset_pwd","",""
