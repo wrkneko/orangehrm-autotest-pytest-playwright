@@ -9,8 +9,9 @@ playwright-report/
 allure-results/
 allure-report/
 .pytest_cache/
-assets
-
+assets/
+report.html
+gh-pages/
 # env & secrets
 .env
 
@@ -19,5 +20,3 @@ assets
 
 # logs
 *.log
-
-report.html

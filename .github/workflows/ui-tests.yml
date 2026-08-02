@@ -117,3 +117,122 @@ jobs:
           name: regression-traces
           path: test-results/
           retention-days: 14
+
+  publish-report:
+    # Publishes the just-generated report.html to GitHub Pages, keeping
+    # every previous run's report browsable via a version-picker index.
+    name: Publish report to Pages
+    needs: [smoke, regression]
+    if: always() && (needs.smoke.result != 'skipped' || needs.regression.result != 'skipped')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Determine which job ran
+        id: meta
+        run: |
+          if [ "${{ needs.smoke.result }}" != "skipped" ]; then
+            kind="smoke"
+            status="${{ needs.smoke.result }}"
+          else
+            kind="regression"
+            status="${{ needs.regression.result }}"
+          fi
+          label="$(date -u +'%Y-%m-%d_%H-%M')-run${{ github.run_number }}"
+          echo "kind=$kind" >> "$GITHUB_OUTPUT"
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          echo "label=$label" >> "$GITHUB_OUTPUT"
+
+      - name: Download report artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: ${{ steps.meta.outputs.kind }}-report
+          path: downloaded-report
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: gh-pages
+        continue-on-error: true
+
+      - name: Create gh-pages branch if it doesn't exist yet
+        run: |
+          if [ ! -d gh-pages ]; then
+            mkdir gh-pages
+            cd gh-pages
+            git init -q
+            git checkout -q -b gh-pages
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+          fi
+
+      - name: Add this run's report
+        run: |
+          dest="gh-pages/reports/${{ steps.meta.outputs.kind }}/${{ steps.meta.outputs.label }}"
+          mkdir -p "$dest"
+          cp downloaded-report/report.html "$dest/index.html"
+
+      - name: Rebuild version-picker index.html
+        run: |
+          python3 - <<'PY'
+          import os
+
+          base = "gh-pages/reports"
+          rows = []
+          if os.path.isdir(base):
+              for kind in sorted(os.listdir(base)):
+                  kind_dir = os.path.join(base, kind)
+                  if not os.path.isdir(kind_dir):
+                      continue
+                  for label in os.listdir(kind_dir):
+                      if os.path.isdir(os.path.join(kind_dir, label)):
+                          rows.append((kind, label))
+
+          # newest first (labels start with an ISO date, so string sort works)
+          rows.sort(key=lambda r: r[1], reverse=True)
+
+          items = "\n".join(
+              f'<li><a href="reports/{kind}/{label}/index.html">'
+              f'<span class="badge {kind}">{kind}</span> {label}</a></li>'
+              for kind, label in rows
+          )
+
+          html = f"""<!DOCTYPE html>
+          <html lang="en">
+          <head>
+          <meta charset="utf-8">
+          <title>OrangeHRM Autotest Reports</title>
+          <style>
+            body {{ font-family: system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; }}
+            h1 {{ font-size: 1.4rem; }}
+            ul {{ list-style: none; padding: 0; }}
+            li {{ padding: 8px 0; border-bottom: 1px solid #eee; }}
+            a {{ text-decoration: none; color: #0969da; }}
+            a:hover {{ text-decoration: underline; }}
+            .badge {{ display: inline-block; min-width: 70px; padding: 2px 8px; border-radius: 4px;
+                      font-size: 0.8rem; color: #fff; text-align: center; margin-right: 8px; }}
+            .badge.smoke {{ background: #2da44e; }}
+            .badge.regression {{ background: #8250df; }}
+          </style>
+          </head>
+          <body>
+          <h1>OrangeHRM Autotest Reports</h1>
+          <p>Pick a run to view its HTML report.</p>
+          <ul>
+          {items}
+          </ul>
+          </body>
+          </html>
+          """
+
+          with open("gh-pages/index.html", "w", encoding="utf-8") as f:
+              f.write(html)
+          PY
+
+      - name: Commit and push report
+        run: |
+          cd gh-pages
+          git add -A
+          git commit -q -m "Publish ${{ steps.meta.outputs.kind }} report (run ${{ github.run_number }})" || echo "Nothing to commit"
+          git push -q origin gh-pages --force-with-lease || git push -q origin gh-pages
