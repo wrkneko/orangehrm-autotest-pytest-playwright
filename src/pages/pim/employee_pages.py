@@ -74,6 +74,7 @@ class EmployeeListPage(BasePage):
         self.no_records_text = page.get_by_text("No Records Found")
         self.delete_selected_button = page.get_by_role("button", name="Delete Selected")
         self.confirm_delete_button = page.get_by_role("button", name="Yes, Delete")
+        
 
     def _select_employee_from_autocomplete(self) -> "EmployeeListPage":
         self.select_from_autocomplete(self.employee_name_search, "Employee name")

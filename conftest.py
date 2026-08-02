@@ -5,12 +5,23 @@ import pytest
 import yaml
 from playwright.sync_api import Playwright
 
+
 from src.api.api_client import ApiClient
 from src.pages.login_page import LoginPage
 from src.pages.pim.employee_pages import EmployeeListPage
 
+from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv() # for local test runs purpose
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
+
+ai_client = OpenAI(
+    api_key = os.getenv("AI_TOKEN"),
+    base_url = "https://openrouter.ai/api/v1"
+)
 
 
 def _load_config() -> dict:
@@ -102,3 +113,37 @@ def employee_cleanup(authenticated_page, base_url):
             list_page.cleanup_employee(employee_id)
         except Exception:
             logger.exception("Failed to clean up employee %s", employee_id)
+
+# AI comment on HTML report
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call" and report.failed:
+        pytest_html = item.config.pluginmanager.getplugin("html")
+        ai_response = ai_client.chat.completions.create(
+            model=os.getenv("AI_MODEL"),
+            messages=[
+                {
+                    "role":"user",
+                    "content":f"""You are a senior automation QA engineer.
+                    Test '{item.name}' failed with this error:
+                    {call.excinfo.exconly()}.
+                    Traceback: 
+                    {report.longreprtext[-1500:]}
+                    
+                    In couple sentences: is this a real bug, a flaky test, 
+                    or a broken locator or config issue?
+                    Suggest the most likely root cause.
+                    """
+                }
+            ]
+        )
+
+        feedback = ai_response.choices[0].message.content
+
+        extra = getattr(report,"extra", [])
+        extra.append(pytest_html.extras.text(feedback, name="AI Feedback"))
+        report.extra = extra
