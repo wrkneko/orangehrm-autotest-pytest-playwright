@@ -44,10 +44,10 @@ Everything the framework needs comes from the environment, so the same code
 runs locally from `.env` and in CI from repository secrets.
 
 | Variable | Meaning | Default |
-| --- | --- | --- |
+| --- | --- | -- |
 | `BASE_URL` | Instance under test | `https://opensource-demo.orangehrmlive.com` |
 | `ORANGEHRM_USER` | Login for the session-scoped fixture | `Admin` |
-| `ORANGEHRM_PASSWORD` | Password for that login | — |
+| `ORANGEHRM_PASSWORD` | Password for that login |  |
 | `HEADLESS` | Run the browser headless | `true` |
 | `SLOWMO` | Delay between actions, ms | `0` |
 
