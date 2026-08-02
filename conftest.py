@@ -1,3 +1,4 @@
+import html as html_lib
 import logging
 import os
 
@@ -10,18 +11,17 @@ from src.api.api_client import ApiClient
 from src.pages.login_page import LoginPage
 from src.pages.pim.employee_pages import EmployeeListPage
 
-from openai import OpenAI
 from dotenv import load_dotenv
+
+try:
+    import allure
+except ImportError:  # allure-pytest is optional
+    allure = None
 
 load_dotenv() # for local test runs purpose
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
-
-ai_client = OpenAI(
-    api_key = os.getenv("AI_TOKEN"),
-    base_url = "https://openrouter.ai/api/v1"
-)
 
 
 def _load_config() -> dict:
@@ -48,6 +48,7 @@ def credentials(config) -> dict:
         "username": os.getenv("ORANGEHRM_USER", config["credentials"]["username"]),
         "password": os.getenv("ORANGEHRM_PASSWORD", config["credentials"]["password"]),
     }
+
 
 @pytest.fixture(scope="session")
 def reports_test_data() -> dict:
@@ -98,6 +99,7 @@ def api_client(playwright: Playwright, base_url, credentials):
     yield client
     client.dispose()
 
+
 @pytest.fixture
 def employee_cleanup(authenticated_page, base_url):
     employee_ids: list[str] = []
@@ -114,36 +116,108 @@ def employee_cleanup(authenticated_page, base_url):
         except Exception:
             logger.exception("Failed to clean up employee %s", employee_id)
 
-# AI comment on HTML report
+AI_BASE_URL = "https://openrouter.ai/api/v1"
+AI_TIMEOUT_SECONDS = 30
+AI_MAX_ANALYSES = int(os.getenv("AI_MAX_ANALYSES", "10"))
+
+_ai_client = None
+_ai_analyses_done = 0
+
+
+def _get_ai_client():
+    """Build the client on first use rather than at import.
+
+    At import time a missing AI_TOKEN raises and takes down collection for the
+    entire suite — including every test that has nothing to do with the AI.
+    """
+    global _ai_client
+
+    if _ai_client is not None:
+        return _ai_client
+
+    token = os.getenv("AI_TOKEN")
+    if not token or not os.getenv("AI_MODEL"):
+        return None
+
+    from openai import OpenAI
+
+    _ai_client = OpenAI(
+        api_key=token,
+        base_url=AI_BASE_URL,
+        timeout=AI_TIMEOUT_SECONDS,
+        max_retries=1,
+    )
+    return _ai_client
+
+
+def _analyse_failure(item, call, report) -> str | None:
+    """Ask the model what went wrong. Returns None when unavailable."""
+    global _ai_analyses_done
+
+    if _ai_analyses_done >= AI_MAX_ANALYSES:
+        return None
+
+    client = _get_ai_client()
+    if client is None:
+        logger.info("AI analysis skipped: AI_TOKEN or AI_MODEL is not set.")
+        return None
+
+    prompt = f"""You are a senior automation QA engineer.
+    Test '{item.name}' failed with this error:
+    {call.excinfo.exconly()}.
+    Traceback:
+    {report.longreprtext[-1500:]}
+
+    In couple sentences: is this a real bug, a flaky test,
+    or a broken locator or config issue?
+    Suggest the most likely root cause.
+    """
+
+    response = client.chat.completions.create(
+        model=os.getenv("AI_MODEL"),
+        max_tokens=300,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    _ai_analyses_done += 1
+    return response.choices[0].message.content
+
+
+def _attach_feedback(item, report, feedback: str) -> None:
+    """Publish the commentary to whichever reporters are active."""
+    pytest_html = item.config.pluginmanager.getplugin("html")
+    if pytest_html is not None:
+        block = f"<div><b>AI Feedback:</b><pre>{html_lib.escape(feedback)}</pre></div>"
+        report.extras = [
+            *getattr(report, "extras", []),
+            pytest_html.extras.html(block),
+        ]
+
+    if allure is not None:
+        allure.attach(
+            feedback,
+            name="AI failure analysis",
+            attachment_type=allure.attachment_type.TEXT,
+        )
+
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     outcome = yield
     report = outcome.get_result()
 
-    if report.when == "call" and report.failed:
-        pytest_html = item.config.pluginmanager.getplugin("html")
-        ai_response = ai_client.chat.completions.create(
-            model=os.getenv("AI_MODEL"),
-            messages=[
-                {
-                    "role":"user",
-                    "content":f"""You are a senior automation QA engineer.
-                    Test '{item.name}' failed with this error:
-                    {call.excinfo.exconly()}.
-                    Traceback: 
-                    {report.longreprtext[-1500:]}
-                    
-                    In couple sentences: is this a real bug, a flaky test, 
-                    or a broken locator or config issue?
-                    Suggest the most likely root cause.
-                    """
-                }
-            ]
-        )
+    if report.when != "call" or not report.failed:
+        return
 
-        feedback = ai_response.choices[0].message.content
+    try:
+        feedback = _analyse_failure(item, call, report)
+    except Exception as exc:
+        logger.warning("AI failure analysis unavailable for %s: %s", item.name, exc)
+        return
 
-        extra = getattr(report,"extra", [])
-        extra.append(pytest_html.extras.html(f"<div><b>AI Feedback:</b><br>{feedback}</div>"))
-        report.extra = extra
+    if not feedback:
+        return
+
+    try:
+        _attach_feedback(item, report, feedback)
+    except Exception:
+        logger.exception("Could not attach AI feedback for %s", item.name)

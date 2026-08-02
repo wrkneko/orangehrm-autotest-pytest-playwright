@@ -61,7 +61,15 @@ jobs:
       - name: Add Allure metadata
         if: always()
         run: |
-          mkdir -p allure-results
+          # Do NOT create the directory here. If pytest died before writing
+          # any results, an allure-results/ holding only metadata would be
+          # uploaded and rendered as an empty, green-looking report.
+          if [ ! -d allure-results ]; then
+            echo "::warning::pytest produced no allure-results; nothing to render."
+            exit 0
+          fi
+          echo "Result files: $(find allure-results -name '*-result.json' | wc -l)"
+
           cat > allure-results/environment.properties <<'EOF'
           BASE_URL=${{ vars.BASE_URL }}
           TEST_ENV=ci
@@ -139,7 +147,15 @@ jobs:
       - name: Add Allure metadata
         if: always()
         run: |
-          mkdir -p allure-results
+          # Do NOT create the directory here. If pytest died before writing
+          # any results, an allure-results/ holding only metadata would be
+          # uploaded and rendered as an empty, green-looking report.
+          if [ ! -d allure-results ]; then
+            echo "::warning::pytest produced no allure-results; nothing to render."
+            exit 0
+          fi
+          echo "Result files: $(find allure-results -name '*-result.json' | wc -l)"
+
           cat > allure-results/environment.properties <<'EOF'
           BASE_URL=${{ vars.BASE_URL }}
           TEST_ENV=ci
