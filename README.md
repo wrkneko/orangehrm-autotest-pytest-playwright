@@ -312,7 +312,7 @@ A few choices worth calling out, since they are the parts that usually break:
 ### Badge
 
 ```markdown
-![UI Tests](https://github.com/<owner>/<repo>/actions/workflows/ui-tests.yml/badge.svg)
+![UI Tests](https://github.com/wrkneko/orangehrm-autotest-pytest-playwright/actions/workflows/ui-tests.yml/badge.svg)
 ```
 
 ## A note on the target environment
