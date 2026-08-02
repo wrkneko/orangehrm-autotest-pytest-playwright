@@ -158,14 +158,20 @@ jobs:
 
       - name: Create gh-pages branch if it doesn't exist yet
         run: |
-          if [ ! -d gh-pages ]; then
+          if [ ! -d gh-pages/.git ]; then
+            rm -rf gh-pages
             mkdir gh-pages
             cd gh-pages
             git init -q
             git checkout -q -b gh-pages
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           fi
+
+      - name: Configure git identity
+        run: |
+          cd gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Add this run's report
         run: |
