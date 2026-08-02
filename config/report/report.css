@@ -53,6 +53,9 @@ body {
   align-content: start;
 
   max-width: 1440px;
+  /* pytest-html sets `min-width: 800px`, which pins the page open on phones
+     and split screens. The grid below is responsive, so drop the floor. */
+  min-width: 0;
   margin: 0 auto;
   padding: 28px 24px 64px;
 
@@ -203,7 +206,7 @@ h2,
   font-size: 0.82rem;
   text-align: left;
   vertical-align: top;
-  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 #environment tr:last-child td,
@@ -436,10 +439,13 @@ input[type="search"]:focus {
   white-space: nowrap;
 }
 
+/* `anywhere`, not `break-word`: only the former shrinks the cell's
+   min-content width, and a table cannot lay out narrower than that. Long
+   parametrised test ids would otherwise widen the page on small screens. */
 #results-table td.col-testId {
   font-family: var(--bn-mono);
   font-size: 0.8rem;
-  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 #results-table td.col-duration,
@@ -500,26 +506,73 @@ td.extra {
   background: var(--bn-tile-sunk);
 }
 
-.log {
-  max-height: 420px;
-  overflow: auto;
-  padding: 16px;
-  border: 0;
+/* pytest-html styles these as `.logwrapper .log` and `.logwrapper .logexpander`.
+   Single-class selectors lose to that, so match the specificity here or the
+   defaults (black Courier on a grey wrapper) survive.
+
+   Upstream scrolls the wrapper and slides the log up 50px so the expander
+   floats over its top-right corner, which leaves a dead band under short
+   logs and hides text under the button once scrolled. Here the wrapper is a
+   plain container and the log itself scrolls, so the button always sits
+   above the text and the box is exactly as tall as its contents. */
+
+.logwrapper {
+  max-height: none;
+  overflow: hidden;
   border-radius: var(--bn-radius-sm);
   background: #16182c;
+}
+
+.logwrapper .log {
+  position: static;
+  top: auto;
+  height: auto;
+  min-height: 0;
+  max-height: 300px;
+  overflow: auto;
+  padding: 10px 16px 16px;
+  border: 0;
+  background: transparent;
   color: #e4e6f2;
   font-family: var(--bn-mono);
   font-size: 0.78rem;
-  line-height: 1.6;
+  line-height: 1.65;
   white-space: pre-wrap;
+  /* Long file paths have no break opportunities; without this they set the
+     cell's min-content width and stretch the whole table past its tile. */
+  overflow-wrap: anywhere;
 }
 
-.log::-webkit-scrollbar {
+/* The JS toggles `expanded` on the wrapper, so hand the cap to the log. */
+.logwrapper.expanded .log {
+  max-height: none;
+}
+
+.logwrapper .logexpander {
+  position: static;
+  margin: 10px 12px 0 auto;
+  padding: 4px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #cfd3e8;
+  font-family: var(--bn-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.logwrapper .logexpander:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.36);
+  color: #ffffff;
+}
+
+.logwrapper .log::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 
-.log::-webkit-scrollbar-thumb {
+.logwrapper .log::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.16);
   border-radius: 999px;
 }
@@ -565,7 +618,7 @@ a.col-links,
 
 @media (max-width: 1000px) {
   body {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     padding: 20px 14px 48px;
     gap: 12px;
   }
