@@ -69,6 +69,27 @@ def split_label(label: str) -> tuple[str, str, str]:
     return date, hhmm.replace("-", ":"), run
 
 
+def run_key(kind: str, label: str) -> tuple[str, str]:
+    """Identity of a run across formats.
+
+    The same run is published once per format, and the two labels need not
+    match — each publish stamps its own timestamp, so '…17-54-run38' and
+    '…17-51-run38' are one run. The run number is the stable part; fall back
+    to the whole label if a directory was named by hand. Run numbers are only
+    unique within a workflow, so the kind stays part of the key.
+    """
+    _, _, run = split_label(label)
+    return (kind, run or label)
+
+
+def merge_status(current: str | None, status: str) -> str:
+    """A run is only as good as its worst format."""
+    if current is None:
+        return status
+    rank = {"failure": 2, "success": 1}
+    return current if rank.get(current, 0) >= rank.get(status, 0) else status
+
+
 def status_class(status: str) -> str:
     return STATUS_CLASS.get(status, "unknown")
 
@@ -166,17 +187,18 @@ def render_switcher(sections) -> str:
 
 def render_page(title: str, sections, css: str) -> str:
     """`sections` is a list of (root, heading, blurb, runs)."""
-    # The same run is published under both formats, so count distinct labels
-    # rather than directories or the totals double.
-    by_label: dict[str, tuple[str, str]] = {}
+    # The same run is published under both formats, so collapse the two
+    # entries into one before counting or the totals double.
+    by_run: dict[tuple[str, str], str] = {}
     for _, _, _, runs in sections:
         for kind, label, status in runs:
-            by_label.setdefault(label, (kind, status))
+            key = run_key(kind, label)
+            by_run[key] = merge_status(by_run.get(key), status)
 
-    total = len(by_label)
-    passed = sum(1 for kind, status in by_label.values() if status == "success")
-    failed = sum(1 for kind, status in by_label.values() if status == "failure")
-    nightly = sum(1 for kind, status in by_label.values() if kind == "regression")
+    total = len(by_run)
+    passed = sum(1 for status in by_run.values() if status == "success")
+    failed = sum(1 for status in by_run.values() if status == "failure")
+    nightly = sum(1 for kind, _ in by_run if kind == "regression")
 
     stats = "".join(
         f'<div class="{" ".join(filter(None, ("tile", "stat", modifier)))}">'
