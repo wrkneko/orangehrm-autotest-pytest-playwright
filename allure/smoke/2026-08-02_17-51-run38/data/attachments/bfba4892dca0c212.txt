@@ -1,0 +1,16 @@
+2026-08-02 17:52:24,403 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+2026-08-02 17:52:27,009 [INFO] Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/auth/login'> selector='internal:text="Forgot your password?"s'>
+2026-08-02 17:52:27,854 [INFO] Filling 'Username field': Admin
+2026-08-02 17:52:28,177 [INFO] Clicking: Reset Password button
+2026-08-02 17:52:59,928 [INFO] HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-08-02 17:52:59,929 [INFO] Retrying request to /chat/completions in 0.425121 seconds
+2026-08-02 17:53:00,383 [INFO] HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-08-02 17:53:00,384 [WARNING] AI failure analysis unavailable for test_reset_password[chromium]: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1785715200000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3HMDmiFRuS2YZOz8VU4pFdxYgmM'}
+2026-08-02 17:53:10,162 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+2026-08-02 17:53:13,016 [INFO] Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/auth/login'> selector='internal:text="Forgot your password?"s'>
+2026-08-02 17:53:13,830 [INFO] Filling 'Username field': Admin
+2026-08-02 17:53:14,148 [INFO] Clicking: Reset Password button
+2026-08-02 17:53:44,459 [INFO] HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-08-02 17:53:44,459 [INFO] Retrying request to /chat/completions in 0.414707 seconds
+2026-08-02 17:53:44,899 [INFO] HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-08-02 17:53:44,900 [WARNING] AI failure analysis unavailable for test_reset_password[chromium]: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1785715200000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3HMDmiFRuS2YZOz8VU4pFdxYgmM'}
