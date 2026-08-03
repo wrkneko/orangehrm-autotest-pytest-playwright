@@ -1,0 +1,4 @@
+**Short answer**
+
+It’s almost certainly a *flaky test / timing issue* (or a locator that’s too strict).  
+The test is waiting for the exact text `"Records Found"` to appear, but the element either never shows that exact
