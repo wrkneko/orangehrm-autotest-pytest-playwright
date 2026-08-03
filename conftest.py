@@ -175,7 +175,6 @@ def _analyse_failure(item, call, report) -> str | None:
 
     response = client.chat.completions.create(
         model=os.getenv("AI_MODEL"),
-        max_tokens=300,
         messages=[{"role": "user", "content": prompt}],
     )
     _ai_analyses_done += 1
