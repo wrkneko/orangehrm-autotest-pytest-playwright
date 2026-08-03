@@ -177,25 +177,25 @@ jobs:
           git commit -q -m "Publish ${{ steps.run.outputs.kind }} Allure report (run ${{ steps.run.outputs.run_number }})" || echo "Nothing to commit"
           git push -q origin gh-pages --force-with-lease || git push -q origin gh-pages
 
-      - name: Notify n8n
-        if: always()
-        run: |
-          if [ "${{ steps.run.outputs.found }}" == "true" ]; then
-            status="$(cat "gh-pages/allure/${{ steps.run.outputs.kind }}/${{ steps.run.outputs.label }}/status.txt" 2>/dev/null || echo unknown)"
-            pages_url="https://${{ github.repository_owner }}.github.io/${GITHUB_REPOSITORY#*/}/allure/${{ steps.run.outputs.kind }}/${{ steps.run.outputs.label }}/"
-          else
-            status="no-report"
-            pages_url="https://${{ github.repository_owner }}.github.io/${GITHUB_REPOSITORY#*/}/"
-          fi
-
-          payload=$(printf '{"status":"%s","kind":"%s","pages_url":"%s","run_url":"%s","run_number":"%s","commit":"%s"}' \
-            "$status" \
-            "${{ steps.run.outputs.kind }}" \
-            "$pages_url" \
-            "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ steps.run.outputs.run_id }}" \
-            "${{ steps.run.outputs.run_number }}" \
-            "${{ steps.run.outputs.sha }}")
-
-          curl -sf -X POST "${{ secrets.N8N_WEBHOOK_URL }}" \
-            -H "Content-Type: application/json" \
-            -d "$payload"
+#      - name: Notify n8n
+#        if: always()
+#        run: |
+#          if [ "${{ steps.run.outputs.found }}" == "true" ]; then
+#            status="$(cat "gh-pages/allure/${{ steps.run.outputs.kind }}/${{ steps.run.outputs.label }}/status.txt" 2>/dev/null || echo unknown)"
+#            pages_url="https://${{ github.repository_owner }}.github.io/${GITHUB_REPOSITORY#*/}/allure/${{ steps.run.outputs.kind }}/${{ steps.run.outputs.label }}/"
+#          else
+#            status="no-report"
+#            pages_url="https://${{ github.repository_owner }}.github.io/${GITHUB_REPOSITORY#*/}/"
+#          fi
+#
+#          payload=$(printf '{"status":"%s","kind":"%s","pages_url":"%s","run_url":"%s","run_number":"%s","commit":"%s"}' \
+#            "$status" \
+#            "${{ steps.run.outputs.kind }}" \
+#            "$pages_url" \
+#            "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ steps.run.outputs.run_id }}" \
+#            "${{ steps.run.outputs.run_number }}" \
+#            "${{ steps.run.outputs.sha }}")
+#
+#          curl -sf -X POST "${{ secrets.N8N_WEBHOOK_URL }}" \
+#            -H "Content-Type: application/json" \
+#            -d "$payload"
