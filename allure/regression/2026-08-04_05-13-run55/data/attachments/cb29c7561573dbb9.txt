@@ -1,0 +1,29 @@
+**Short answer**
+
+It’s almost certainly a **broken locator** (or a UI change that broke the locator) rather than a flaky test or a Playwright‑config issue. The test is waiting for an `<option>` with the exact role/name “Employee Contact info report”, but that element never becomes visible/clickable within 30 s – either because the option no longer exists, its text has changed, or the dropdown isn’t being opened before the click is attempted.
+
+**Why this is the most likely root cause**
+
+| Symptom | What it points to |
+|---------|-------------------|
+| `Locator.click: Timeout 30000ms exceeded` | Playwright couldn’t find a *clickable* element that matches the locator. |
+| Call log shows `waiting for get_by_role("option", name="Employee Contact info report", exact=True)` | The locator is very specific – it looks for an `<option>` whose accessible name is exactly “Employee Contact info report”. |
+| No other timeout or navigation errors | The page itself is loading fine; the failure is isolated to this element. |
+| Test runs on Chromium only | The same locator works on other browsers (if it does), so it’s not a browser‑specific bug. |
+
+**Typical causes**
+
+1. **UI change** – The report name was renamed, the option was removed, or the dropdown now renders a different element (e.g., a `<div>` instead of `<option>`).
+2. **Timing issue** – The dropdown isn’t opened or the options aren’t rendered yet when the click is attempted. The test may need an explicit `await page.wait_for_selector(...)` or a `click` on the dropdown first.
+3. **Whitespace/extra characters** – The `exact=True` flag will fail if there’s any leading/trailing whitespace or a different case in the option text.
+
+**What to check next**
+
+1. Open the page in Chromium, inspect the dropdown, and confirm that an option with the exact name “Employee Contact info report” exists and is visible.
+2. If the option exists but has different text, update the locator (remove `exact=True` or adjust the name).
+3. If the option is missing, verify whether the report was removed or renamed in the application.
+4. Add a short wait or a `click` on the dropdown before attempting to click the option, to ensure the options are rendered.
+
+**Bottom line**
+
+The failure is almost certainly due to a **locator mismatch** (UI change or incorrect selector) rather than a flaky test or a Playwright configuration problem. Fixing the locator or adding a proper wait for the dropdown will resolve the timeout.

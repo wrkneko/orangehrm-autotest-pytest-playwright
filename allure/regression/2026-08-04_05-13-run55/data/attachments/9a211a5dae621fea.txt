@@ -1,0 +1,26 @@
+**Short answer**
+
+It’s almost certainly a flaky test caused by a timing issue (or a stale locator if the option text changed). The test is waiting 30 s for an `<option>` with the exact name “Employee Contact info report” to appear, but it never shows up in Chromium – either because the dropdown hasn’t finished rendering or the option isn’t in the DOM at that moment. It’s not a bug in the app itself, but a locator/wait problem in the test.
+
+**Why this is the most likely root cause**
+
+| Symptom | What it points to | Why it fits |
+|---------|-------------------|-------------|
+| `Locator.click: Timeout 30000ms exceeded` | The element never becomes visible/attached | The test is waiting for something that never appears. |
+| Call log shows `waiting for get_by_role("option", name="Employee Contact info report", exact=True)` | The test is looking for a specific option in a dropdown | The dropdown may not be populated yet or the option text may have changed. |
+| Failure only on Chromium | Browser‑specific rendering or timing | Chromium can be slower or render custom components differently, causing the option to appear later than the default timeout. |
+| Test name `test_reset_restores_full_report_list` | The test resets filters and expects the full list | The reset action may trigger an async data load that isn’t finished when the test tries to click the option. |
+
+**What to check / fix**
+
+1. **Verify the option text** – Make sure the option is still called “Employee Contact info report”. If the UI changed, update the locator.
+2. **Add a more robust wait** – Instead of relying on the default 30 s, wait for the dropdown to be visible and for the option to be attached:
+   ```python
+   await page.locator('role=combobox').wait_for(state='visible')
+   await page.get_by_role('option', name='Employee Contact info report').wait_for(state='attached')
+   ```
+3. **Ensure the page is fully loaded** – If the dropdown is populated via an API call, wait for that request to finish or for a loading spinner to disappear before interacting.
+4. **Check for custom components** – If the dropdown is a custom widget (e.g., a React Select), the role may not be `option`. Inspect the DOM and adjust the locator accordingly.
+5. **Run the test locally** – See if the failure reproduces consistently. If it only happens in CI, consider increasing the timeout or adding a retry.
+
+In short, the test is timing out because the element it’s trying to click isn’t present when the click is attempted. Fixing the wait or locator should resolve the flaky failure.

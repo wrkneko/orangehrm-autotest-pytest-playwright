@@ -1,0 +1,8 @@
+**Short answer:**  
+It’s almost certainly a **broken locator / timing issue** rather than a genuine application bug. The test is waiting for an `<option>` with the exact text “Employee Contact info report”, but that element never appears in the DOM (or is not visible) within the 30 s timeout.  
+
+**Most likely root cause:**  
+- The UI has changed – the option text has been renamed, trimmed, or moved into a different component, so the `get_by_role("option", name="Employee Contact info report", exact=True)` selector no longer matches.  
+- Alternatively, the option is rendered asynchronously after the search, and the test does not wait long enough or for the correct element state (e.g., it’s still hidden or covered by a loading overlay).  
+
+Either update the selector to match the current markup (remove `exact=True` or adjust the text) or add a more robust wait (e.g., `locator.wait_for(state="visible")`) before clicking. This will resolve the flaky timeout failures.

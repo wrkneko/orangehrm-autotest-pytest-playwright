@@ -1,0 +1,14 @@
+**Short answer:**  
+It’s almost certainly a **broken locator** (or a UI change that made the element unavailable), not a genuine bug in the application or a flaky test.  
+
+**Why:**  
+The failure is a `TimeoutError` on `Locator.click` for `get_by_role("option", name="Employee Contact info report", exact=True)`. Playwright waited 30 s for that option to appear and become clickable, but never found it. That usually means the element is either not present in the DOM at all, or its role/text no longer matches the locator.  
+
+If the UI had changed (e.g., the option text was renamed, the dropdown was replaced, or the option is now rendered asynchronously after a different event), the locator would no longer match. A flaky test would typically still find the element eventually; a timeout that consistently occurs points to a locator mismatch or a missing element.  
+
+**Root‑cause hypothesis:**  
+- The “Employee Contact info report” option was removed/renamed or moved to a different component.  
+- The dropdown is not being opened before the click, so the option never becomes available.  
+- The test’s `exact=True` is too strict if the option text has leading/trailing whitespace or a different casing.  
+
+Fixing the locator (or updating the test to wait for the correct element) should resolve the failure.
