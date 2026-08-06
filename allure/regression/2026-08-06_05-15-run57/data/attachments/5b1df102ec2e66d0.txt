@@ -1,0 +1,67 @@
+**Short answer**
+
+The failure is almost certainly a **test‑expectation mismatch** – the test is asserting that the browser will be redirected to a personal‑details URL after clicking *Save*, but the OrangeHRM demo app stays on the “Add Employee” page and simply shows a “Successfully Saved” toast.  
+There is no flaky timing issue here; the page never navigates, so the assertion fails immediately.
+
+---
+
+## Why the test fails
+
+| What the test does | What the app actually does |
+|--------------------|----------------------------|
+| Click **Save** on the *Add Employee* form | Shows a success toast and stays on the same page |
+| Wait for navigation to `/pim/viewPersonalDetails/empNumber/\d+` | No navigation occurs – URL remains `/pim/addEmployee` |
+
+The Playwright log confirms this:
+
+```
+- waiting for "https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewPersonalDetails/empNumber/281" navigation to finish...
+Actual value: https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee
+```
+
+So the test is asserting the wrong post‑condition.
+
+---
+
+## Root cause
+
+1. **Application behaviour changed** – The demo site no longer redirects to the employee’s personal‑details page after a successful add.  
+2. **Test assumption is stale** – The test was written against an older version of the app that performed the redirect.
+
+There is no locator or configuration issue; the test is simply out of sync with the current UI flow.
+
+---
+
+## Fix / Mitigation
+
+| Option | What to do | Why it works |
+|--------|------------|--------------|
+| **Update the test** | Replace the `expect(page).to_have_url(...)` assertion with a check for the success toast or for the presence of the new employee in the list. | The test will now validate the actual behaviour of the app. |
+| **Add a navigation step** | After clicking *Save*, explicitly click the “View” link that appears in the toast or navigate to the employee list and click the new employee. | Keeps the test’s intent (to end up on the personal‑details page) while matching the UI flow. |
+| **Re‑enable the redirect** | If you control the demo environment, restore the old redirect behaviour. | Only recommended if the redirect is a required feature for your test suite. |
+
+**Example updated assertion (Playwright, Python)**
+
+```python
+# After clicking Save
+await page.click('button:has-text("Save")')
+
+# Wait for the success toast
+await expect(page.locator('.oxd-toast')).to_contain_text('Successfully Saved')
+
+# Optionally, click the “View” link that appears in the toast
+await page.click('a:has-text("View")')
+
+# Now assert the URL
+await expect(page).to_have_url(re.compile(r'/pim/viewPersonalDetails/empNumber/\d+'))
+```
+
+---
+
+## Quick checklist
+
+- [ ] Verify that the demo site’s current behaviour is indeed “stay on Add Employee page + toast”.
+- [ ] Update the test to match that behaviour (toast check, or click the “View” link).
+- [ ] If the redirect is a required feature, investigate why the demo site stopped redirecting (e.g., a recent UI refactor or a bug in the demo environment).
+
+Once the test is aligned with the actual UI flow, the failure will disappear.
