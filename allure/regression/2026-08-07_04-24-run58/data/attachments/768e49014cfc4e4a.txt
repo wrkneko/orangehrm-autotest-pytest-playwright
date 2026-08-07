@@ -1,0 +1,40 @@
+**Short answer**
+
+The test is wrong – it expects the browser to be redirected to a *personal‑details* URL immediately after clicking **Save**, but the demo site shows a “Successfully Saved” modal and stays on the **Add Employee** page until you close the modal (or the page is refreshed). The assertion fires before the redirect happens, so the URL is still `/pim/addEmployee`.  
+
+**Root‑cause analysis**
+
+| What happened | Why it happened | Evidence |
+|---------------|-----------------|----------|
+| `expect(page).to_have_url(re.compile('.*/pim/viewPersonalDetails/empNumber/\\d+'))` fails | The test checks the URL *right after* the Save button is clicked. | The call log shows the assertion was made 14 times in 5 s, all with the same unexpected value. |
+| The page stays on `/pim/addEmployee` | OrangeHRM shows a success toast/modal and **does not** navigate automatically. The user must click the close button (×) or the page is refreshed after the modal is dismissed. | The aria snapshot contains a “Success” paragraph and a “×” button. |
+| The test never waits for the modal to disappear | The test logic assumes a redirect, not a modal. | The test code (not shown) likely does not contain a `wait_for_selector('text=Successfully Saved')` or a click on the close button. |
+| The regex used in the assertion is correct for the demo site | The personal‑details URL is `/pim/viewPersonalDetails/empNumber/<id>`. | The regex matches that pattern. |
+
+**Conclusion**
+
+This is a **test bug** (flaky/incorrect expectation), not a defect in OrangeHRM. The test should be updated to:
+
+1. **Wait for the success modal** (`expect(page.locator('text=Successfully Saved')).to_be_visible()`).
+2. **Close the modal** (`await page.click('button:has-text("×")')` or `await page.locator('button:has-text("×")').click()`).
+3. **Then assert the URL** matches the personal‑details pattern.
+
+Alternatively, if the application is supposed to redirect automatically, the test should be updated to wait for the navigation event (`await page.wait_for_url(...)`) instead of checking immediately.
+
+**Quick fix snippet**
+
+```python
+# after clicking Save
+await page.click('button:has-text("Save")')
+
+# wait for the success toast/modal
+await page.wait_for_selector('text=Successfully Saved', state='visible')
+
+# close the modal
+await page.click('button:has-text("×")')
+
+# now assert the URL
+await expect(page).to_have_url(re.compile(r'.*/pim/viewPersonalDetails/empNumber/\d+'))
+```
+
+With this change the test will no longer fail on the demo site.

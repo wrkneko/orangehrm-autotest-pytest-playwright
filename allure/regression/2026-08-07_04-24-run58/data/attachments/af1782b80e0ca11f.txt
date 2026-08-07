@@ -1,0 +1,29 @@
+**Root‑cause:**  
+The test is failing because the locator you’re using for the error toast (`".oxd-alert-content-text"`) no longer matches any element on the page. The page has either changed its markup (e.g., a different class, an additional wrapper, or the toast is rendered in a different part of the DOM) or the element is being rendered inside an iframe/shadow‑DOM that Playwright can’t see with the current selector. As a result, `expect(self.error_alert).to_be_visible()` throws an “element(s) not found” error.
+
+**Why it’s not a flaky test or config issue**
+
+* The timeout is 5 s – plenty of time for the toast to appear.  
+* The navigation log shows the browser is on the login page after the failed login, so the page is loaded.  
+* The failure is deterministic: the locator never finds anything, not just a timing problem.
+
+**What to do**
+
+1. **Inspect the page** after a failed login (open devtools, trigger the error) and verify the actual selector for the toast text.  
+2. Update `self.error_alert` to use a selector that reliably matches the toast, e.g.:
+
+   ```python
+   self.error_alert = self.page.locator("div[role='alert'] .oxd-alert-content-text")
+   # or a more robust text selector
+   self.error_alert = self.page.locator("text=Invalid credentials")
+   ```
+
+3. If the toast is inside an iframe or shadow‑DOM, adjust the locator accordingly (e.g., `self.page.frame(...)` or `locator('css=... >> text=...')`).
+
+4. Optionally, replace the explicit `expect(...).to_be_visible()` with a text‑based wait:
+
+   ```python
+   expect(self.page.locator("text=Invalid credentials")).to_be_visible(timeout=5000)
+   ```
+
+Once the locator is fixed, the test should pass consistently.

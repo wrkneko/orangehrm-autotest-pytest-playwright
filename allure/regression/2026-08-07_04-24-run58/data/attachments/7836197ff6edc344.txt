@@ -1,0 +1,69 @@
+**Short answer**
+
+It’s almost certainly a **broken locator in the `LoginPage.login()` implementation** (most likely the password field or the login button). Because the password never actually gets entered, the form just reloads the login page and no error alert is rendered, so `get_error_message()` can’t find the `.oxd-alert-content-text` element.
+
+---
+
+### Why the test fails
+
+| Step | What the test expects | What actually happens | Why the error is raised |
+|------|-----------------------|-----------------------|------------------------|
+| 1 | `login_page.login("Admin", "wrong-password")` should type the wrong password into the password input and click **Login**. | The password field locator is wrong (or the button locator is wrong), so the password isn’t entered and the click either does nothing or clicks a different element. | The page simply reloads the login form – no error alert is produced. |
+| 2 | `login_page.get_error_message()` calls `expect(self.error_alert).to_be_visible(...)`. | The locator `.oxd-alert-content-text` is correct for the error alert, but the alert never appears because the login attempt failed silently. | Playwright throws `AssertionError: Locator expected to be visible – element(s) not found`. |
+
+The call‑log shows that Playwright navigated back to the login URL immediately after the click, confirming that the login action didn’t trigger the error flow.
+
+---
+
+### Most likely root cause
+
+- **Password field locator is wrong** – e.g., using the username input’s selector or a stale selector that no longer matches the DOM.
+- **Login button locator is wrong** – e.g., clicking a different button or a hidden element that just reloads the page.
+- **Missing wait for navigation** – if the click is performed before the page is ready, the form may submit incorrectly.
+
+Because the error message locator itself is fine (you can verify it by inspecting the page after a manual failed login), the problem is almost certainly in the *action* that should trigger the error.
+
+---
+
+### Quick sanity check
+
+1. **Open the demo site** in a browser.
+2. **Inspect the password input** – note its `id`, `name`, or any unique attribute.
+3. **Inspect the login button** – note its `data-test` or `type="submit"` attribute.
+4. **Manually type a wrong password** and click login – confirm that the alert appears with the text “Invalid credentials”.
+
+If the selectors you used in `LoginPage.login()` differ from the ones you just inspected, update them.
+
+---
+
+### Suggested fix
+
+```python
+# src/pages/login_page.py
+
+class LoginPage:
+    # Update these selectors to match the current DOM
+    username_input = Locator("input[name='username']")
+    password_input = Locator("input[name='password']")
+    login_button   = Locator("button[type='submit']")
+
+    def login(self, username: str, password: str) -> None:
+        self.username_input.fill(username)
+        self.password_input.fill(password)
+        self.login_button.click()
+        # Optional: wait for navigation or for the error alert to appear
+        self.page.wait_for_load_state("networkidle")
+```
+
+Make sure the `Locator` objects are created with the correct selector strings. If the page uses dynamic IDs or classes, consider using more robust selectors (e.g., `data-test` attributes or `role="button"`).
+
+---
+
+### If the locator is correct
+
+If you confirm that the password and button selectors are indeed correct, the next step is to check for **timing issues**:
+
+- Add a short `wait_for_selector` before clicking the button.
+- Ensure that the page isn’t being blocked by a modal or a cookie banner that prevents the click.
+
+But given the error message “element(s) not found” and the immediate navigation back to the login page, a locator problem is the most plausible root cause. Fixing the selectors should make the test pass consistently.

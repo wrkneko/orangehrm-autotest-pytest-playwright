@@ -1,0 +1,93 @@
+**Short answer**
+
+The test is **not failing because of a bug in OrangeHRM** – it’s failing because the test never actually leaves the “Add Employee” page.  
+The `expect(page).to_have_url()` assertion is waiting for a redirect to  
+`/pim/viewPersonalDetails/empNumber/<id>` but the page stays on  
+`/pim/addEmployee`.  
+That means the *Save* action didn’t trigger a navigation – most likely because:
+
+1. **Required fields are not being filled** (or are filled incorrectly).  
+2. **The “Create Login Details” checkbox is not checked** when the test expects it to be.  
+3. **The locator for the “Save” button is wrong or stale** (e.g., it points to a hidden button or a button that is disabled).  
+4. **Timing** – the test clicks “Save” and immediately checks the URL before the page has a chance to redirect.
+
+---
+
+## Why the URL didn’t change
+
+| Possible cause | What you see in the snapshot | Why it matters |
+|----------------|------------------------------|----------------|
+| **Missing required fields** | The snapshot shows *Employee Full Name* and *Employee Id* filled, but the *Middle Name* field is empty (which is optional) and the *Create Login Details* section is only a checkbox with no text. | OrangeHRM will not submit the form if any required field is empty or if the form is invalid. |
+| **Checkbox not checked** | The snapshot shows a plain `checkbox` element but no indication that it is checked. | If the test expects a login to be created, the form will stay on the same page until the checkbox is ticked. |
+| **Wrong locator** | The test probably uses something like `page.get_by_text("Save")` or a CSS selector that matches a hidden button. | Playwright will click the element but the click may not trigger the form submission if the element is not the one that actually submits the form. |
+| **Timing** | The test immediately asserts the URL after clicking “Save”. | The redirect can take a few hundred milliseconds; if the assertion runs too early, the URL will still be the old one. |
+
+---
+
+## How to debug
+
+1. **Add a screenshot or trace** after the click to see what the page looks like.  
+   ```python
+   await page.screenshot(path="after_save.png")
+   await page.tracing.stop(path="trace.zip")
+   ```
+2. **Check the state of the “Save” button** before clicking:  
+   ```python
+   assert await page.is_visible("button:has-text('Save')")
+   assert await page.is_enabled("button:has-text('Save')")
+   ```
+3. **Verify the checkbox state**:  
+   ```python
+   await page.check("input[type='checkbox'][name='createLoginDetails']")
+   ```
+4. **Wait for navigation** instead of a hard timeout:  
+   ```python
+   await page.wait_for_url(re.compile(r".*/pim/viewPersonalDetails/empNumber/\d+"))
+   ```
+5. **Inspect the form’s `action` attribute** to confirm it points to the expected endpoint.
+
+---
+
+## Likely root cause
+
+> **The test is clicking the “Save” button before the form is valid (missing required fields or unchecked “Create Login Details”), so the page never redirects.**
+
+---
+
+## Fixes
+
+| Fix | Why it works |
+|-----|--------------|
+| **Fill all required fields** (first name, last name, employee ID) and **check the “Create Login Details” checkbox** before clicking Save. | The form will be valid and will submit. |
+| **Use a more reliable locator** for the Save button, e.g. `button:has-text('Save')` or a data‑test-id if available. | Avoids clicking a hidden or disabled button. |
+| **Add a wait for navigation** after clicking Save. | Guarantees the test only checks the URL after the redirect has happened. |
+| **Add a screenshot/trace** in the test to capture the state when the failure occurs. | Helps future debugging if the issue reappears. |
+
+---
+
+### Quick patch example
+
+```python
+# employee_pages.py
+async def add_employee(self, first_name, last_name, emp_id, create_login=False):
+    await self.page.fill("input[name='firstName']", first_name)
+    await self.page.fill("input[name='lastName']", last_name)
+    await self.page.fill("input[name='employeeId']", str(emp_id))
+
+    if create_login:
+        await self.page.check("input[name='createLoginDetails']")
+
+    # Ensure the button is enabled before clicking
+    await self.page.wait_for_selector("button:has-text('Save'):enabled")
+    await self.page.click("button:has-text('Save')")
+
+    # Wait for the redirect to the personal details page
+    await self.page.wait_for_url(re.compile(r".*/pim/viewPersonalDetails/empNumber/\d+"))
+```
+
+---
+
+## Bottom line
+
+The failure is a **broken test** (or a locator/timing issue), not a bug in OrangeHRM.  
+Fix the test to ensure the form is valid and the click actually triggers a navigation, then the assertion will pass.

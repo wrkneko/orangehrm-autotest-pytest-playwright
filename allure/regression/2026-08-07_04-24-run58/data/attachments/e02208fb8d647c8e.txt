@@ -1,0 +1,9 @@
+INFO     src.pages.base_page:base_page.py:27 Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+INFO     src.pages.base_page:base_page.py:35 Filling 'username field': Admin
+INFO     src.pages.base_page:base_page.py:35 Filling 'password field': admin123
+INFO     src.pages.base_page:base_page.py:31 Clicking: Login button
+INFO     src.pages.base_page:base_page.py:27 Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee
+INFO     src.pages.base_page:base_page.py:35 Filling 'first name': Jason
+INFO     src.pages.base_page:base_page.py:35 Filling 'last name': Foster
+INFO     src.pages.base_page:base_page.py:35 Filling 'employee id': 981849
+INFO     src.pages.base_page:base_page.py:31 Clicking: Save button
