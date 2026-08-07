@@ -116,6 +116,15 @@ def employee_cleanup(authenticated_page, base_url):
         except Exception:
             logger.exception("Failed to clean up employee %s", employee_id)
 
+def api_employee_cleanup(api_client):
+    employee_ids: list[str] = []
+    yield employee_ids.append
+    for employee_id in employee_ids:
+        try:
+            api_client.delete_employee(employee_id)
+        except Exception:
+            logger.exception("Failed to clean up employee %s", employee_id)
+
 AI_BASE_URL = "https://openrouter.ai/api/v1"
 AI_TIMEOUT_SECONDS = 30
 AI_MAX_ANALYSES = int(os.getenv("AI_MAX_ANALYSES", "10"))
