@@ -1,0 +1,1 @@
+INFO     src.api.api_client:api_client.py:53 Created employee Scott Jordan -> empNumber=270

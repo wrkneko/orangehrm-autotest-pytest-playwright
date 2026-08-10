@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:53 Created employee Kaitlyn Jones -> empNumber=271
+INFO     src.api.api_client:api_client.py:69 Created user 'tina65' for empNumber=271

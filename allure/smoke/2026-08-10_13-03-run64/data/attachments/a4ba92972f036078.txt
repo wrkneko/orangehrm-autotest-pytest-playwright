@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:38 API session authenticated as 'Admin'
+INFO     src.api.api_client:api_client.py:53 Created employee Ryan Buchanan -> empNumber=269
