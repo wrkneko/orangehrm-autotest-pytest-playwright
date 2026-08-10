@@ -6,10 +6,11 @@ import pytest
 import yaml
 from playwright.sync_api import Playwright
 
-
+from src.api.tracked_api_client import TrackedApiClient
 from src.api.api_client import ApiClient
 from src.pages.login_page import LoginPage
 from src.pages.pim.employee_pages import EmployeeListPage
+from src.data.factories import build_employee, build_user
 
 from dotenv import load_dotenv
 
@@ -48,7 +49,6 @@ def credentials(config) -> dict:
         "username": os.getenv("ORANGEHRM_USER", config["credentials"]["username"]),
         "password": os.getenv("ORANGEHRM_PASSWORD", config["credentials"]["password"]),
     }
-
 
 @pytest.fixture(scope="session")
 def reports_test_data() -> dict:
@@ -99,6 +99,20 @@ def api_client(playwright: Playwright, base_url, credentials):
     yield client
     client.dispose()
 
+@pytest.fixture
+def tracked_api_client(api_client, api_employee_cleanup):
+    return TrackedApiClient(api_client, api_employee_cleanup)
+
+
+@pytest.fixture
+def employee_data():
+    return build_employee
+
+
+@pytest.fixture
+def user_data():
+    return build_user
+
 
 @pytest.fixture
 def employee_cleanup(authenticated_page, base_url):
@@ -116,14 +130,23 @@ def employee_cleanup(authenticated_page, base_url):
         except Exception:
             logger.exception("Failed to clean up employee %s", employee_id)
 
+@pytest.fixture
 def api_employee_cleanup(api_client):
-    employee_ids: list[str] = []
-    yield employee_ids.append
-    for employee_id in employee_ids:
+    employee_ids: list[int] = []
+    user_ids: list[int] = []
+
+    yield {"employee": employee_ids.append, "user": user_ids.append}
+
+    if user_ids:
         try:
-            api_client.delete_employee(employee_id)
+            api_client.delete_users(user_ids)
         except Exception:
-            logger.exception("Failed to clean up employee %s", employee_id)
+            logger.exception("API cleanup failed for users %s", user_ids)
+    if employee_ids:
+        try:
+            api_client.delete_employees(employee_ids)
+        except Exception:
+            logger.exception("API cleanup failed for employees %s", employee_ids)
 
 AI_BASE_URL = "https://openrouter.ai/api/v1"
 AI_TIMEOUT_SECONDS = 30
@@ -131,6 +154,15 @@ AI_MAX_ANALYSES = int(os.getenv("AI_MAX_ANALYSES", "10"))
 
 _ai_client = None
 _ai_analyses_done = 0
+
+@pytest.fixture(scope="session")
+def employees_test_data() -> dict:
+    """ Using this only for negative scenarios where
+        employee wrong data is needed. Rest is covered
+        by factories fake generation
+    """
+    with open("config/data/employees.yaml", encoding="utf-8") as f:
+        return yaml.safe_load(f)
 
 
 def _get_ai_client():
@@ -208,24 +240,24 @@ def _attach_feedback(item, report, feedback: str) -> None:
         )
 
 
-@pytest.hookimpl(hookwrapper=True)
-def pytest_runtest_makereport(item, call):
-    outcome = yield
-    report = outcome.get_result()
-
-    if report.when != "call" or not report.failed:
-        return
-
-    try:
-        feedback = _analyse_failure(item, call, report)
-    except Exception as exc:
-        logger.warning("AI failure analysis unavailable for %s: %s", item.name, exc)
-        return
-
-    if not feedback:
-        return
-
-    try:
-        _attach_feedback(item, report, feedback)
-    except Exception:
-        logger.exception("Could not attach AI feedback for %s", item.name)
+# @pytest.hookimpl(hookwrapper=True)
+# def pytest_runtest_makereport(item, call):
+#     outcome = yield
+#     report = outcome.get_result()
+#
+#     if report.when != "call" or not report.failed:
+#         return
+#
+#     try:
+#         feedback = _analyse_failure(item, call, report)
+#     except Exception as exc:
+#         logger.warning("AI failure analysis unavailable for %s: %s", item.name, exc)
+#         return
+#
+#     if not feedback:
+#         return
+#
+#     try:
+#         _attach_feedback(item, report, feedback)
+#     except Exception:
+#         logger.exception("Could not attach AI feedback for %s", item.name)

@@ -1,7 +1,5 @@
-
 import logging
 import re
-import uuid
 
 from playwright.sync_api import APIRequestContext, Playwright
 
@@ -13,23 +11,30 @@ class ApiClient:
         self.base_url = base_url.rstrip("/")
         self.context: APIRequestContext = playwright.request.new_context(base_url=self.base_url)
 
-    def _check_response(self, response, action:str) -> dict:
+    def _check_response(self, response, action: str) -> dict:
         if response.status >= 400:
-            raise RuntimeError(f"API login failed with status {response.status}")
+            raise RuntimeError(
+                f"{action} failed with status {response.status}: {response.text()}")
         return response.json()
-
 
     def login(self, username: str, password: str) -> None:
         login_page = self.context.get("/web/index.php/auth/login")
-        token_match = re.search(r'name="_token"\s+value="([^"]+)"', login_page.text())
-        token = token_match.group(1) if token_match else ""
+        token_match = re.search(r':token="&quot;([^&]+)&quot;"', login_page.text())
+        if not token_match:
+            raise RuntimeError("Could not extract CSRF token from login page — page markup may have changed")
+        token = token_match.group(1)
 
         response = self.context.post(
-            "/web/index.php/auth/login",
-            form={"username": username, "password": password, "_token": token},
+            "/web/index.php/auth/validate",
+            form={"_token": token, "username": username, "password": password},
         )
         if response.status >= 400:
             raise RuntimeError(f"API login failed with status {response.status}")
+        if "/auth/login" in response.url:
+            raise RuntimeError(
+                f"API login failed: credentials rejected for '{username}' "
+                f"(redirected back to login page)"
+            )
         logger.info("API session authenticated as '%s'", username)
 
     def get_employees(self, name_filter: str = "") -> dict:
@@ -37,33 +42,60 @@ class ApiClient:
             "/web/index.php/api/v2/pim/employees",
             params={"nameOrId": name_filter} if name_filter else {},
         )
-        if response.status >= 400:
-            raise RuntimeError(f"Failed to fetch employees: {response.status}")
-        return response.json()
-
-    def delete_employee(self, employee_id: str) -> None:
-        response = self.context.delete(f"/web/index.php/api/v2/pim/employees/{employee_id}")
-        logger.info("Delete employee %s -> status %s", employee_id, response.status)
+        return self._check_response(response, "Fetch employees")
 
     def create_employee(self, payload: dict) -> dict:
-        body_payload = {
-            "middleName": "",
-            "empPicture": None,
-            "employeeId": str(uuid.uuid4().int)[:6],
-            **payload
-        }
+        if "firstName" not in payload or "lastName" not in payload:
+            raise ValueError("create_employee payload requires 'firstName' and 'lastName'")
 
-        if "firstName" not in body_payload or "lastName" not in body_payload:
-            raise ValueError("employee create payload requires 'firstName' and 'lastName'")
-        response = self.context.post("/web/index.php/api/v2/pim/employees",
-                                     data=body_payload)
-        body = self._check_response(response, "Create Employee")
+        response = self.context.post("/web/index.php/api/v2/pim/employees", data=payload)
+        body = self._check_response(response, "Create employee")
         logger.info(
             "Created employee %s %s -> empNumber=%s",
-            body_payload["firstName"], body_payload["lastName"],
-            body["data"]["empNumber"]
+            payload["firstName"], payload["lastName"], body["data"]["empNumber"],
         )
         return body["data"]
+
+    def create_user(self, payload: dict) -> dict:
+        required = {"username", "password", "empNumber"}
+        missing = required - payload.keys()
+        if missing:
+            raise ValueError(
+                f"create_user payload missing required fields: {missing}")
+
+        response = self.context.post("/web/index.php/api/v2/admin/users",
+                                     data=payload)
+        body = self._check_response(response, "Create user")
+        logger.info("Created user '%s' for empNumber=%s",
+                    body["data"]["userName"], payload["empNumber"])
+        return body["data"]
+
+    def create_employee_with_login(self, employee_payload: dict, user_payload: dict) -> dict:
+        employee = self.create_employee(employee_payload)
+        user_payload = {"empNumber": employee["empNumber"], **user_payload}
+        user = self.create_user(user_payload)
+        return {"employee": employee, "user": user}
+
+    def delete_employee(self, employee_id: int) -> dict:
+        return self.delete_employees([employee_id])
+
+    def delete_employees(self, employee_ids: list[int]) -> dict:
+        response = self.context.delete(
+            "/web/index.php/api/v2/pim/employees",
+            data={"ids": employee_ids},
+        )
+        return self._check_response(response,
+                                    f"Delete employees {employee_ids}")
+
+    def delete_user(self, user_id: int) -> dict:
+        return self.delete_users([user_id])
+
+    def delete_users(self, user_ids: list[int]) -> dict:
+        response = self.context.delete(
+            "/web/index.php/api/v2/admin/users",
+            data={"ids": user_ids},
+        )
+        return self._check_response(response, f"Delete users {user_ids}")
 
     def dispose(self) -> None:
         self.context.dispose()
