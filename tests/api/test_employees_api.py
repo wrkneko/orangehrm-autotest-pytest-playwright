@@ -9,18 +9,19 @@ def test_get_employees_returns_data(api_client):
     assert "data" in result
     assert isinstance(result["data"], list)
 
+@pytest.mark.smoke
 def test_create_employee_minimal(tracked_api_client, employee_data):
     employee = tracked_api_client.create_employee(employee_data().to_payload())
     assert employee["lastName"]
 
-
+@pytest.mark.smoke
 def test_create_employee_with_middle_name(tracked_api_client, employee_data):
     employee = tracked_api_client.create_employee(
         employee_data(middle_name="MiddleTest").to_payload()
     )
     assert employee["middleName"] == "MiddleTest"
 
-
+@pytest.mark.smoke
 def test_create_employee_with_login(tracked_api_client, employee_data, user_data):
     result = tracked_api_client.create_employee_with_login(
         employee_data().to_payload(),
