@@ -1,0 +1,4 @@
+2026-08-10 17:48:09,296 [INFO] Created employee Jeff Villarreal -> empNumber=4585
+2026-08-10 17:48:09,836 [INFO] Created user 'patriciajones' (id=99) for empNumber=4585
+2026-08-10 17:48:10,076 [INFO] Deleted users [99]
+2026-08-10 17:48:10,350 [INFO] Deleted employees [4585]
