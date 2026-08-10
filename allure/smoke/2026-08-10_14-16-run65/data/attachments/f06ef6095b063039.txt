@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:53 Created employee Jo Cooper -> empNumber=244
+INFO     src.api.api_client:api_client.py:69 Created user 'krystal29' for empNumber=244

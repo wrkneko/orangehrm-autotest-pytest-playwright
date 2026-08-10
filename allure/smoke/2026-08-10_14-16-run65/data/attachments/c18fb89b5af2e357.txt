@@ -1,0 +1,2 @@
+2026-08-10 14:18:15,710 [INFO] Created employee Jo Cooper -> empNumber=244
+2026-08-10 14:18:16,301 [INFO] Created user 'krystal29' for empNumber=244
