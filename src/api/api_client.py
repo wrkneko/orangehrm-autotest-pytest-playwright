@@ -66,9 +66,12 @@ class ApiClient:
         response = self.context.post("/web/index.php/api/v2/admin/users",
                                      data=payload)
         body = self._check_response(response, "Create user")
-        logger.info("Created user '%s' for empNumber=%s",
-                    body["data"]["userName"], payload["empNumber"])
-        return body["data"]
+        user = body["data"]
+        logger.info(
+            "Created user '%s' (id=%s) for empNumber=%s",
+            user["userName"], user["id"], payload["empNumber"],
+        )
+        return user
 
     def create_employee_with_login(self, employee_payload: dict, user_payload: dict) -> dict:
         employee = self.create_employee(employee_payload)
@@ -84,6 +87,7 @@ class ApiClient:
             "/web/index.php/api/v2/pim/employees",
             data={"ids": employee_ids},
         )
+        logger.info("Deleted employees %s", employee_ids)
         return self._check_response(response,
                                     f"Delete employees {employee_ids}")
 
@@ -95,7 +99,8 @@ class ApiClient:
             "/web/index.php/api/v2/admin/users",
             data={"ids": user_ids},
         )
-        return self._check_response(response, f"Delete users {user_ids}")
+        logger.info("Deleted users %s", user_ids)
+        return self._check_response(response, f"Deleted users: {user_ids}")
 
     def dispose(self) -> None:
         self.context.dispose()
