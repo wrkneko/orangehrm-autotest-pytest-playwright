@@ -1,0 +1,4 @@
+2026-08-11 14:46:43,966 [INFO] Created employee Amy Shannon -> empNumber=289
+2026-08-11 14:46:44,493 [INFO] Created user 'walshjeff' (id=130) for empNumber=289
+2026-08-11 14:46:44,760 [INFO] Deleted users [130]
+2026-08-11 14:46:45,030 [INFO] Deleted employees [289]

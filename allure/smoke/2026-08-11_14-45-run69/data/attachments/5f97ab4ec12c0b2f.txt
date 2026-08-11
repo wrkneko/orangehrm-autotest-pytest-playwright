@@ -1,0 +1,2 @@
+2026-08-11 14:46:42,831 [INFO] Created employee Kathleen Vasquez -> empNumber=287
+2026-08-11 14:46:43,069 [INFO] Deleted employees [287]
