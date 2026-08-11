@@ -1,0 +1,4 @@
+2026-08-11 14:58:45,458 [INFO] Created employee Jonathon Stuart -> empNumber=315
+2026-08-11 14:58:47,952 [INFO] Created user 'abigailterrell' (id=147) for empNumber=315
+2026-08-11 14:58:49,541 [INFO] Deleted users [147]
+2026-08-11 14:58:51,539 [INFO] Deleted employees [315]

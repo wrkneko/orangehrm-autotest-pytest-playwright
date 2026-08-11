@@ -1,0 +1,2 @@
+2026-08-11 14:58:42,257 [INFO] Created employee Jessica Hill -> empNumber=313
+2026-08-11 14:58:43,045 [INFO] Deleted employees [313]
