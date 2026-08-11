@@ -2,6 +2,10 @@ import logging
 import re
 
 from playwright.sync_api import APIRequestContext, Playwright
+from pydantic import BaseModel, ValidationError
+
+from src.schemas.employee import CreateEmployeeResponse, GetEmployeesResponse
+from src.schemas.user import CreateUserResponse
 
 logger = logging.getLogger(__name__)
 
@@ -11,11 +15,22 @@ class ApiClient:
         self.base_url = base_url.rstrip("/")
         self.context: APIRequestContext = playwright.request.new_context(base_url=self.base_url)
 
-    def _check_response(self, response, action: str) -> dict:
+    def _check_response(self, response, action: str, schema: type[BaseModel] | None = None) -> dict:
         if response.status >= 400:
             raise RuntimeError(
                 f"{action} failed with status {response.status}: {response.text()}")
-        return response.json()
+        body = response.json()
+        if schema is not None:
+            self._validate_schema(body, schema, action)
+        return body
+
+    def _validate_schema(self, body: dict, schema: type[BaseModel], action: str) -> None:
+        try:
+            schema.model_validate(body)
+        except ValidationError as e:
+            raise AssertionError(
+                f"{action}: response does not match expected schema {schema.__name__}:\n{e}"
+            ) from e
 
     def login(self, username: str, password: str) -> None:
         login_page = self.context.get("/web/index.php/auth/login")
@@ -42,14 +57,14 @@ class ApiClient:
             "/web/index.php/api/v2/pim/employees",
             params={"nameOrId": name_filter} if name_filter else {},
         )
-        return self._check_response(response, "Fetch employees")
+        return self._check_response(response, "Fetch employees", schema=GetEmployeesResponse)
 
     def create_employee(self, payload: dict) -> dict:
         if "firstName" not in payload or "lastName" not in payload:
             raise ValueError("create_employee payload requires 'firstName' and 'lastName'")
 
         response = self.context.post("/web/index.php/api/v2/pim/employees", data=payload)
-        body = self._check_response(response, "Create employee")
+        body = self._check_response(response, "Create employee", schema=CreateEmployeeResponse)
         logger.info(
             "Created employee %s %s -> empNumber=%s",
             payload["firstName"], payload["lastName"], body["data"]["empNumber"],
@@ -63,9 +78,8 @@ class ApiClient:
             raise ValueError(
                 f"create_user payload missing required fields: {missing}")
 
-        response = self.context.post("/web/index.php/api/v2/admin/users",
-                                     data=payload)
-        body = self._check_response(response, "Create user")
+        response = self.context.post("/web/index.php/api/v2/admin/users", data=payload)
+        body = self._check_response(response, "Create user", schema=CreateUserResponse)
         user = body["data"]
         logger.info(
             "Created user '%s' (id=%s) for empNumber=%s",
@@ -88,8 +102,7 @@ class ApiClient:
             data={"ids": employee_ids},
         )
         logger.info("Deleted employees %s", employee_ids)
-        return self._check_response(response,
-                                    f"Delete employees {employee_ids}")
+        return self._check_response(response, f"Delete employees {employee_ids}")
 
     def delete_user(self, user_id: int) -> dict:
         return self.delete_users([user_id])

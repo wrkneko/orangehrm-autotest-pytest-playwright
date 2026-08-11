@@ -1,12 +1,13 @@
 import pytest
 
 
+
+# this test has only the get method because schema is asserted in the
+# request method itself, see api_client.py -> get_employees
 @pytest.mark.api
 @pytest.mark.smoke
 def test_get_employees_returns_data(api_client):
-    result = api_client.get_employees()
-    assert "data" in result
-    assert isinstance(result["data"], list)
+    api_client.get_employees()
 
 @pytest.mark.api
 @pytest.mark.smoke
