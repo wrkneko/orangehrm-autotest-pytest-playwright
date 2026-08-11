@@ -1,0 +1,4 @@
+2026-08-11 10:27:16,662 [INFO] Created employee Justin Sawyer -> empNumber=225
+2026-08-11 10:27:17,705 [INFO] Created user 'fewing' (id=83) for empNumber=225
+2026-08-11 10:27:17,994 [INFO] Deleted users [83]
+2026-08-11 10:27:18,302 [INFO] Deleted employees [225]

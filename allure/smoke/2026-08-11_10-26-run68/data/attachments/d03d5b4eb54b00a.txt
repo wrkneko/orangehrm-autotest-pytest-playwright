@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:53 Created employee Jennifer Perry -> empNumber=224
+INFO     src.api.api_client:api_client.py:90 Deleted employees [224]
