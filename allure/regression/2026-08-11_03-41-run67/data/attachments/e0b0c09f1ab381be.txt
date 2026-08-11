@@ -1,0 +1,4 @@
+2026-08-11 03:42:34,779 [INFO] Created employee Deborah Gamble -> empNumber=359
+2026-08-11 03:42:35,345 [INFO] Created user 'pamela69' (id=97) for empNumber=359
+2026-08-11 03:42:35,641 [INFO] Deleted users [97]
+2026-08-11 03:42:35,971 [INFO] Deleted employees [359]

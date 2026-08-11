@@ -1,0 +1,2 @@
+2026-08-11 03:42:34,152 [INFO] Created employee Sarah Cochran -> empNumber=358
+2026-08-11 03:42:34,460 [INFO] Deleted employees [358]
