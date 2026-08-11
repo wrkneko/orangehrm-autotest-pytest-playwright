@@ -40,17 +40,22 @@ class EmpStatus(BaseModel):
     name: Optional[str] = None
 
 
-class EmployeeListItem(BaseModel):
+class EmployeeListItemDefault(BaseModel):
     empNumber: int
     lastName: str
     firstName: str
     middleName: Optional[str] = None
     employeeId: Optional[str] = None
     terminationId: Optional[Any] = None
+
+
+# created for case where request is sent with model=detailed, WIP
+class EmployeeListItemDetailed(EmployeeListItemDefault):
     jobTitle: JobTitle
     subunit: SubUnit
     empStatus: EmpStatus
     supervisors: list[Any] = []
 
 
-GetEmployeesResponse = PaginatedApiEnvelope[list[EmployeeListItem]]
+GetEmployeesResponse = PaginatedApiEnvelope[list[EmployeeListItemDefault]]
+GetEmployeesDetailedResponse = PaginatedApiEnvelope[list[EmployeeListItemDetailed]]
