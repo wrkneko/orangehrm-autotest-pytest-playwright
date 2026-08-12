@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Erin Paul -> empNumber=181
+INFO     src.api.api_client:api_client.py:104 Deleted employees [181]

@@ -1,0 +1,4 @@
+2026-08-12 04:06:15,428 [INFO] Created employee Brittany Hansen -> empNumber=182
+2026-08-12 04:06:15,988 [INFO] Created user 'anthony08' (id=58) for empNumber=182
+2026-08-12 04:06:16,284 [INFO] Deleted users [58]
+2026-08-12 04:06:16,592 [INFO] Deleted employees [182]
