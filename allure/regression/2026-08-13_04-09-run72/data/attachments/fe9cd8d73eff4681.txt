@@ -1,0 +1,2 @@
+2026-08-13 04:10:35,489 [INFO] Created employee Teresa Long -> empNumber=206
+2026-08-13 04:10:35,770 [INFO] Deleted employees [206]

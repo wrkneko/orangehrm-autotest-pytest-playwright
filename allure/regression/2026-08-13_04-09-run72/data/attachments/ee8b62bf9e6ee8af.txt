@@ -1,0 +1,2 @@
+2026-08-13 04:10:34,906 [INFO] Created employee Mary Castro -> empNumber=205
+2026-08-13 04:10:35,186 [INFO] Deleted employees [205]
