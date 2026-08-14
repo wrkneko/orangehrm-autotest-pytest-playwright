@@ -1,0 +1,4 @@
+2026-08-14 04:07:26,235 [INFO] Created employee Melissa Spencer -> empNumber=183
+2026-08-14 04:07:26,811 [INFO] Created user 'jlucas' (id=57) for empNumber=183
+2026-08-14 04:07:27,111 [INFO] Deleted users [57]
+2026-08-14 04:07:27,430 [INFO] Deleted employees [183]

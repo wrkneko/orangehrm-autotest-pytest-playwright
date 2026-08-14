@@ -1,0 +1,2 @@
+2026-08-14 04:07:25,601 [INFO] Created employee Benjamin West -> empNumber=182
+2026-08-14 04:07:25,914 [INFO] Deleted employees [182]
