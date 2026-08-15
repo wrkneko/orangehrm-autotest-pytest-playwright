@@ -1,0 +1,2 @@
+2026-08-15 02:50:12,165 [INFO] Created employee Stephanie Garcia -> empNumber=212
+2026-08-15 02:50:12,436 [INFO] Deleted employees [212]
