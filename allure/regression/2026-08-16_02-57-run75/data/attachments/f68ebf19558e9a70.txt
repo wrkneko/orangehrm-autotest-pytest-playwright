@@ -1,0 +1,2 @@
+2026-08-16 02:58:05,883 [INFO] Created employee Michael Johnson -> empNumber=228
+2026-08-16 02:58:06,160 [INFO] Deleted employees [228]
