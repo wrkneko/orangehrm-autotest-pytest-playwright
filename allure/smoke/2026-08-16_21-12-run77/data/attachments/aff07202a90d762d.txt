@@ -1,0 +1,4 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Adrienne Miller -> empNumber=197
+INFO     src.api.api_client:api_client.py:84 Created user 'michealwhite' (id=61) for empNumber=197
+INFO     src.api.api_client:api_client.py:115 Deleted users [61]
+INFO     src.api.api_client:api_client.py:104 Deleted employees [197]

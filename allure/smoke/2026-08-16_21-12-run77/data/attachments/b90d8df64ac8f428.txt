@@ -1,0 +1,2 @@
+2026-08-16 21:13:10,910 [INFO] Created employee Edward Wilson -> empNumber=196
+2026-08-16 21:13:11,214 [INFO] Deleted employees [196]

@@ -1,0 +1,4 @@
+2026-08-16 21:13:11,541 [INFO] Created employee Adrienne Miller -> empNumber=197
+2026-08-16 21:13:12,112 [INFO] Created user 'michealwhite' (id=61) for empNumber=197
+2026-08-16 21:13:12,405 [INFO] Deleted users [61]
+2026-08-16 21:13:12,728 [INFO] Deleted employees [197]
