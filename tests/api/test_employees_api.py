@@ -16,13 +16,13 @@ def test_create_employee_minimal(tracked_api_client, employee_data):
     assert employee["lastName"]
 
 @pytest.mark.api
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_create_employee_with_middle_name(tracked_api_client, employee_data):
     employee = tracked_api_client.create_employee(
         employee_data(middle_name="MiddleTest").to_payload()
     )
     assert employee["middleName"] == "MiddleTest"
-
+\
 @pytest.mark.api
 @pytest.mark.smoke
 def test_create_employee_with_login(tracked_api_client, employee_data, user_data):
