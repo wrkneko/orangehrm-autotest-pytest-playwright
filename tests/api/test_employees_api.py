@@ -22,7 +22,7 @@ def test_create_employee_with_middle_name(tracked_api_client, employee_data):
         employee_data(middle_name="MiddleTest").to_payload()
     )
     assert employee["middleName"] == "MiddleTest"
-\
+
 @pytest.mark.api
 @pytest.mark.smoke
 def test_create_employee_with_login(tracked_api_client, employee_data, user_data):
