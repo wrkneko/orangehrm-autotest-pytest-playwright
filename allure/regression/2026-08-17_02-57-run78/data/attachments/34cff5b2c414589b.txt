@@ -1,0 +1,2 @@
+2026-08-17 02:58:00,055 [INFO] Created employee Brian Malone -> empNumber=244
+2026-08-17 02:58:00,654 [INFO] Deleted employees [244]
