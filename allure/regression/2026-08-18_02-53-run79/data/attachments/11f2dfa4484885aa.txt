@@ -1,0 +1,3 @@
+2026-08-18 02:54:19,884 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList
+2026-08-18 02:54:20,409 [INFO] Filling 'employee name search': test
+2026-08-18 02:54:22,631 [INFO] Clicking: Search button

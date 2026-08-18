@@ -1,0 +1,2 @@
+2026-08-18 02:53:45,142 [INFO] Created employee Julie Ashley -> empNumber=238
+2026-08-18 02:53:45,563 [INFO] Deleted employees [238]

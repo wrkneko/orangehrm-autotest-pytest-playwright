@@ -1,0 +1,11 @@
+INFO     src.pages.base_page:base_page.py:27 Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports
+INFO     src.pages.base_page:base_page.py:31 Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports'> selector='internal:role=button[name="Add"i]'>
+INFO     src.pages.base_page:base_page.py:35 Filling 'Report name': Report Adult 65745
+INFO     src.pages.base_page:base_page.py:31 Clicking: Add selection criteria
+INFO     src.pages.base_page:base_page.py:35 Filling 'Employee name': test
+INFO     src.pages.base_page:base_page.py:31 Clicking: Add display field
+INFO     src.pages.base_page:base_page.py:31 Clicking: Save report
+INFO     src.pages.base_page:base_page.py:27 Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports
+INFO     src.pages.base_page:base_page.py:31 Clicking: Select report: Report Adult 65745
+INFO     src.pages.base_page:base_page.py:31 Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports'> selector='internal:role=button[name="Delete Selected"i]'>
+INFO     src.pages.base_page:base_page.py:31 Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports'> selector='internal:role=button[name="Yes, Delete"i]'>

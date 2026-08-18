@@ -1,0 +1,2 @@
+2026-08-18 02:53:45,861 [INFO] Created employee Andrew Flores -> empNumber=239
+2026-08-18 02:53:46,138 [INFO] Deleted employees [239]
