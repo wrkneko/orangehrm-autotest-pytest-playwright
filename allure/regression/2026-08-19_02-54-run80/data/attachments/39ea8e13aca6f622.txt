@@ -1,0 +1,4 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Brooke Warren -> empNumber=236
+INFO     src.api.api_client:api_client.py:84 Created user 'laura20' (id=67) for empNumber=236
+INFO     src.api.api_client:api_client.py:115 Deleted users [67]
+INFO     src.api.api_client:api_client.py:104 Deleted employees [236]
