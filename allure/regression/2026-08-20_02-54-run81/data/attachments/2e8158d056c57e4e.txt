@@ -1,0 +1,4 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Ashley Miller -> empNumber=245
+INFO     src.api.api_client:api_client.py:84 Created user 'wtyler' (id=68) for empNumber=245
+INFO     src.api.api_client:api_client.py:115 Deleted users [68]
+INFO     src.api.api_client:api_client.py:104 Deleted employees [245]

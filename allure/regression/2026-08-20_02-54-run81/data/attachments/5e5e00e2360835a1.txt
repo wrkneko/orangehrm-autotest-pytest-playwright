@@ -1,0 +1,4 @@
+2026-08-20 02:55:06,613 [INFO] Created employee Ashley Miller -> empNumber=245
+2026-08-20 02:55:07,157 [INFO] Created user 'wtyler' (id=68) for empNumber=245
+2026-08-20 02:55:07,425 [INFO] Deleted users [68]
+2026-08-20 02:55:07,700 [INFO] Deleted employees [245]

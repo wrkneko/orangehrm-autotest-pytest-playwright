@@ -1,0 +1,2 @@
+2026-08-20 02:55:06,012 [INFO] Created employee Anthony Smith -> empNumber=244
+2026-08-20 02:55:06,305 [INFO] Deleted employees [244]

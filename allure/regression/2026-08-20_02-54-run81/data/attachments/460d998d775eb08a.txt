@@ -1,0 +1,2 @@
+2026-08-20 02:55:05,404 [INFO] Created employee Chelsey Ward -> empNumber=243
+2026-08-20 02:55:05,701 [INFO] Deleted employees [243]
