@@ -1,0 +1,4 @@
+2026-08-21 03:01:01,881 [INFO] Created employee Lori Contreras -> empNumber=291
+2026-08-21 03:01:02,649 [INFO] Created user 'nthomas' (id=82) for empNumber=291
+2026-08-21 03:01:03,116 [INFO] Deleted users [82]
+2026-08-21 03:01:03,568 [INFO] Deleted employees [291]

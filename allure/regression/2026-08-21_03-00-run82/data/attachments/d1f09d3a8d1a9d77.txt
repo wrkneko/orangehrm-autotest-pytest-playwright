@@ -1,0 +1,2 @@
+2026-08-21 03:00:59,235 [INFO] Created employee Adam Thomas -> empNumber=287
+2026-08-21 03:00:59,935 [INFO] Deleted employees [287]
