@@ -1,0 +1,2 @@
+2026-08-22 02:52:54,972 [INFO] Created employee Daniel Rodriguez -> empNumber=224
+2026-08-22 02:52:55,256 [INFO] Deleted employees [224]
