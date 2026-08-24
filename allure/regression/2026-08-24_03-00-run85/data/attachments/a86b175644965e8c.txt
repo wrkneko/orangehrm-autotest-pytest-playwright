@@ -1,0 +1,2 @@
+2026-08-24 03:01:27,581 [INFO] Created employee Thomas Ho -> empNumber=225
+2026-08-24 03:01:27,850 [INFO] Deleted employees [225]

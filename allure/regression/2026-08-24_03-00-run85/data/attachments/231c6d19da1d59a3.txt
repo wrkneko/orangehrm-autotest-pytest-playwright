@@ -1,0 +1,2 @@
+2026-08-24 03:01:29,444 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+2026-08-24 03:01:31,733 [INFO] Filling 'username field': Admin

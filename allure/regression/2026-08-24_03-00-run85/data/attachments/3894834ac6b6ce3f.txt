@@ -1,0 +1,4 @@
+2026-08-24 03:01:28,130 [INFO] Created employee Rebecca Briggs -> empNumber=226
+2026-08-24 03:01:28,657 [INFO] Created user 'tclayton' (id=65) for empNumber=226
+2026-08-24 03:01:28,917 [INFO] Deleted users [65]
+2026-08-24 03:01:29,185 [INFO] Deleted employees [226]
