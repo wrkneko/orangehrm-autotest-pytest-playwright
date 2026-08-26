@@ -1,0 +1,2 @@
+2026-08-26 03:03:05,946 [INFO] Created employee Richard Morris -> empNumber=234
+2026-08-26 03:03:06,220 [INFO] Deleted employees [234]

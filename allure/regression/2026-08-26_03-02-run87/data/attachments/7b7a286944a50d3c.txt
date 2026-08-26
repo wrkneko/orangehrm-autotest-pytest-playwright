@@ -1,0 +1,4 @@
+2026-08-26 03:03:06,651 [INFO] Created employee Andrew Nichols -> empNumber=235
+2026-08-26 03:03:07,179 [INFO] Created user 'scottsawyer' (id=113) for empNumber=235
+2026-08-26 03:03:07,507 [INFO] Deleted users [113]
+2026-08-26 03:03:07,846 [INFO] Deleted employees [235]
