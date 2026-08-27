@@ -1,0 +1,4 @@
+2026-08-27 12:21:44,039 [INFO] Created employee Sara Aguilar -> empNumber=215
+2026-08-27 12:21:44,614 [INFO] Created user 'pbrooks' (id=124) for empNumber=215
+2026-08-27 12:21:45,026 [INFO] Deleted users [124]
+2026-08-27 12:21:45,354 [INFO] Deleted employees [215]

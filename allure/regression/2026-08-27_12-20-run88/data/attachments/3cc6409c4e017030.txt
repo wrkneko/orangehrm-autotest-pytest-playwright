@@ -1,0 +1,4 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Sara Aguilar -> empNumber=215
+INFO     src.api.api_client:api_client.py:84 Created user 'pbrooks' (id=124) for empNumber=215
+INFO     src.api.api_client:api_client.py:115 Deleted users [124]
+INFO     src.api.api_client:api_client.py:104 Deleted employees [215]
