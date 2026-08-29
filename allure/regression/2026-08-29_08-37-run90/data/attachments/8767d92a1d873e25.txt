@@ -1,0 +1,18 @@
+INFO     src.pages.base_page:base_page.py:27 Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+INFO     src.pages.base_page:base_page.py:35 Filling 'username field': Admin
+INFO     src.pages.base_page:base_page.py:35 Filling 'password field': admin123
+INFO     src.pages.base_page:base_page.py:31 Clicking: Login button
+INFO     src.pages.base_page:base_page.py:27 Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee
+INFO     src.pages.base_page:base_page.py:35 Filling 'first name': Joshua
+INFO     src.pages.base_page:base_page.py:35 Filling 'last name': Bruce
+INFO     src.pages.base_page:base_page.py:35 Filling 'employee id': 630065
+INFO     src.pages.base_page:base_page.py:31 Clicking: Save button
+INFO     src.pages.base_page:base_page.py:27 Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList
+INFO     src.pages.base_page:base_page.py:35 Filling 'employee id search': 630065
+INFO     src.pages.base_page:base_page.py:31 Clicking: Search button
+INFO     src.pages.base_page:base_page.py:27 Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList
+INFO     src.pages.base_page:base_page.py:35 Filling 'employee id search': 630065
+INFO     src.pages.base_page:base_page.py:31 Clicking: Search button
+INFO     src.pages.base_page:base_page.py:31 Clicking: employee row checkbox
+INFO     src.pages.base_page:base_page.py:31 Clicking: Delete Selected button
+INFO     src.pages.base_page:base_page.py:31 Clicking: Confirm delete button

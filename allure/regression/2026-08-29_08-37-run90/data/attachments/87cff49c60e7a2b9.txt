@@ -1,0 +1,4 @@
+2026-08-29 08:38:15,008 [INFO] Created employee Jennifer Hughes -> empNumber=232
+2026-08-29 08:38:15,543 [INFO] Created user 'wstanley' (id=71) for empNumber=232
+2026-08-29 08:38:15,822 [INFO] Deleted users [71]
+2026-08-29 08:38:16,098 [INFO] Deleted employees [232]

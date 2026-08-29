@@ -1,0 +1,2 @@
+2026-08-29 08:38:14,454 [INFO] Created employee Fernando Thornton -> empNumber=231
+2026-08-29 08:38:14,724 [INFO] Deleted employees [231]

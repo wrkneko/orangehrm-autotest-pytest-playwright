@@ -1,0 +1,2 @@
+2026-08-29 08:38:13,879 [INFO] Created employee Michelle Acosta -> empNumber=230
+2026-08-29 08:38:14,159 [INFO] Deleted employees [230]
