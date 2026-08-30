@@ -1,0 +1,2 @@
+2026-08-30 07:53:24,543 [INFO] Created employee Connie Wong -> empNumber=294
+2026-08-30 07:53:24,830 [INFO] Deleted employees [294]
