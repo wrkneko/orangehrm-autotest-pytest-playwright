@@ -1,0 +1,4 @@
+2026-08-31 08:07:21,765 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+2026-08-31 08:07:23,668 [INFO] Filling 'username field': 
+2026-08-31 08:07:23,793 [INFO] Filling 'password field': 
+2026-08-31 08:07:23,817 [INFO] Clicking: Login button

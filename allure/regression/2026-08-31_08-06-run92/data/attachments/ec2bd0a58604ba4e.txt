@@ -1,0 +1,4 @@
+2026-08-31 08:07:11,615 [INFO] Created employee Megan Kim -> empNumber=192
+2026-08-31 08:07:12,519 [INFO] Created user 'sjohnson' (id=68) for empNumber=192
+2026-08-31 08:07:12,843 [INFO] Deleted users [68]
+2026-08-31 08:07:13,152 [INFO] Deleted employees [192]
