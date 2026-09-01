@@ -1,0 +1,2 @@
+2026-09-01 07:16:38,257 [INFO] Created employee Steven Ingram -> empNumber=483
+2026-09-01 07:16:38,510 [INFO] Deleted employees [483]

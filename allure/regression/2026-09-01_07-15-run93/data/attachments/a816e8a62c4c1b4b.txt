@@ -1,0 +1,2 @@
+2026-09-01 07:16:37,590 [INFO] Created employee Jamie Wolf -> empNumber=482
+2026-09-01 07:16:37,845 [INFO] Deleted employees [482]
