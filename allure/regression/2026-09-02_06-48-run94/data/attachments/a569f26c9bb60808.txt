@@ -1,0 +1,2 @@
+2026-09-02 06:50:06,534 [INFO] Created employee Kayla Douglas -> empNumber=408
+2026-09-02 06:50:08,833 [INFO] Deleted employees [408]

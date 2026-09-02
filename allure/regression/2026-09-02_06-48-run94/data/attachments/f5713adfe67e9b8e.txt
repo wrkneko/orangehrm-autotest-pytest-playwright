@@ -1,0 +1,4 @@
+2026-09-02 06:50:13,252 [INFO] Created employee Jesus Moreno -> empNumber=409
+2026-09-02 06:50:19,342 [INFO] Created user 'wjohnson' (id=104) for empNumber=409
+2026-09-02 06:50:21,125 [INFO] Deleted users [104]
+2026-09-02 06:50:25,025 [INFO] Deleted employees [409]
