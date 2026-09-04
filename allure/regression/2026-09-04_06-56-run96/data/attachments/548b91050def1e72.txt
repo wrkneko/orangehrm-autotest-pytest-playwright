@@ -1,0 +1,4 @@
+2026-09-04 06:57:24,937 [INFO] Created employee Megan Nelson -> empNumber=314
+2026-09-04 06:57:31,940 [INFO] Created user 'qmichael' (id=111) for empNumber=314
+2026-09-04 06:57:33,868 [INFO] Deleted users [111]
+2026-09-04 06:57:35,556 [INFO] Deleted employees [314]

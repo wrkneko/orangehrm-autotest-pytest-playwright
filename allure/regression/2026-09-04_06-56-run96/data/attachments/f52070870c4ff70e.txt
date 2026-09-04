@@ -1,0 +1,2 @@
+2026-09-04 06:57:17,871 [INFO] Created employee Thomas Baker -> empNumber=313
+2026-09-04 06:57:20,752 [INFO] Deleted employees [313]
