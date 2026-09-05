@@ -1,0 +1,4 @@
+2026-09-05 06:41:22,796 [INFO] Created employee Patricia Guzman -> empNumber=244
+2026-09-05 06:41:23,342 [INFO] Created user 'toddwilliams' (id=71) for empNumber=244
+2026-09-05 06:41:23,585 [INFO] Deleted users [71]
+2026-09-05 06:41:23,836 [INFO] Deleted employees [244]

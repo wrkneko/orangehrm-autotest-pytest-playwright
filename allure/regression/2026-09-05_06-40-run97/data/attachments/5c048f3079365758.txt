@@ -1,0 +1,2 @@
+2026-09-05 06:41:21,598 [INFO] Created employee Jonathan Ramsey -> empNumber=242
+2026-09-05 06:41:21,943 [INFO] Deleted employees [242]
