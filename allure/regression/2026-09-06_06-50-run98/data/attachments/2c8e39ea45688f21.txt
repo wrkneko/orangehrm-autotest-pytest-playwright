@@ -1,0 +1,4 @@
+2026-09-06 06:51:28,303 [INFO] Created employee Richard Carson -> empNumber=318
+2026-09-06 06:51:28,821 [INFO] Created user 'denise37' (id=70) for empNumber=318
+2026-09-06 06:51:29,062 [INFO] Deleted users [70]
+2026-09-06 06:51:29,315 [INFO] Deleted employees [318]

@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Megan Wise -> empNumber=316
+INFO     src.api.api_client:api_client.py:104 Deleted employees [316]
