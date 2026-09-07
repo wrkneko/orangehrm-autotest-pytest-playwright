@@ -1,0 +1,2 @@
+2026-09-07 07:00:43,637 [INFO] Created employee Connor Morrison -> empNumber=411
+2026-09-07 07:00:43,933 [INFO] Deleted employees [411]

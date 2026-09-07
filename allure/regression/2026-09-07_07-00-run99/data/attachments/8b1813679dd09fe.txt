@@ -1,0 +1,4 @@
+2026-09-07 07:00:44,824 [INFO] Created employee Cassandra Hall -> empNumber=413
+2026-09-07 07:00:45,371 [INFO] Created user 'aprilmaynard' (id=85) for empNumber=413
+2026-09-07 07:00:45,630 [INFO] Deleted users [85]
+2026-09-07 07:00:45,921 [INFO] Deleted employees [413]

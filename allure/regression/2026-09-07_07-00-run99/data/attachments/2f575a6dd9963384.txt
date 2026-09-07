@@ -1,0 +1,2 @@
+2026-09-07 07:00:44,267 [INFO] Created employee David Jimenez -> empNumber=412
+2026-09-07 07:00:44,539 [INFO] Deleted employees [412]
