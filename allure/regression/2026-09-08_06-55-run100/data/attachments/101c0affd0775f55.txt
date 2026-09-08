@@ -1,0 +1,4 @@
+2026-09-08 06:55:57,838 [INFO] Created employee Alexander Mcfarland -> empNumber=563
+2026-09-08 06:55:58,832 [INFO] Created user 'xcasey' (id=203) for empNumber=563
+2026-09-08 06:55:59,125 [INFO] Deleted users [203]
+2026-09-08 06:55:59,464 [INFO] Deleted employees [563]

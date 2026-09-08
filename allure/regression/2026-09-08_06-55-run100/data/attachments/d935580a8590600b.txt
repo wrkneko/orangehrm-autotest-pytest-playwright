@@ -1,0 +1,1 @@
+INFO     src.api.api_client:api_client.py:53 API session authenticated as 'Admin'
