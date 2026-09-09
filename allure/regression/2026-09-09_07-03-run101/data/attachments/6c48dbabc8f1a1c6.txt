@@ -1,0 +1,2 @@
+2026-09-09 07:04:33,030 [INFO] Created employee Andrew Lewis -> empNumber=523
+2026-09-09 07:04:33,270 [INFO] Deleted employees [523]

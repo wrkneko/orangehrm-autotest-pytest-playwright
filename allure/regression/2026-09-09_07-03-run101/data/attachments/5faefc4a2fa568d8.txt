@@ -1,0 +1,4 @@
+2026-09-09 07:04:34,629 [INFO] Created employee Donald Simon -> empNumber=525
+2026-09-09 07:04:36,038 [INFO] Created user 'lfreeman' (id=213) for empNumber=525
+2026-09-09 07:04:36,431 [INFO] Deleted users [213]
+2026-09-09 07:04:37,020 [INFO] Deleted employees [525]

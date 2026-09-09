@@ -1,0 +1,2 @@
+2026-09-09 07:04:33,526 [INFO] Created employee Kaitlin Ortiz -> empNumber=524
+2026-09-09 07:04:33,774 [INFO] Deleted employees [524]
