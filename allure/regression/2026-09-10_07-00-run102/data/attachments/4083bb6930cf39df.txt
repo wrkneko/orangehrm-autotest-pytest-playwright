@@ -1,0 +1,4 @@
+2026-09-10 07:01:44,448 [INFO] Created employee Joshua Acosta -> empNumber=380
+2026-09-10 07:01:45,156 [INFO] Created user 'ibarber' (id=148) for empNumber=380
+2026-09-10 07:01:45,455 [INFO] Deleted users [148]
+2026-09-10 07:01:45,767 [INFO] Deleted employees [380]

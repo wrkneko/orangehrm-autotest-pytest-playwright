@@ -1,0 +1,2 @@
+2026-09-10 07:01:43,805 [INFO] Created employee Justin Mcdaniel -> empNumber=379
+2026-09-10 07:01:44,118 [INFO] Deleted employees [379]
