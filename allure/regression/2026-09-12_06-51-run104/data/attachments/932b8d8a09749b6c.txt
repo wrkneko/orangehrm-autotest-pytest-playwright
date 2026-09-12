@@ -1,0 +1,5 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Lisa Dixon -> empNumber=358
+INFO     src.api.api_client:api_client.py:68 Created employee Adam Hart -> empNumber=359
+INFO     src.api.api_client:api_client.py:84 Created user 'joseph03' (id=106) for empNumber=359
+INFO     src.api.api_client:api_client.py:115 Deleted users [106]
+INFO     src.api.api_client:api_client.py:104 Deleted employees [359]

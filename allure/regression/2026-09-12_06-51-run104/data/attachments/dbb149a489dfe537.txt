@@ -1,0 +1,5 @@
+2026-09-12 06:52:14,589 [INFO] Created employee Lisa Dixon -> empNumber=358
+2026-09-12 06:52:17,350 [INFO] Created employee Adam Hart -> empNumber=359
+2026-09-12 06:52:17,892 [INFO] Created user 'joseph03' (id=106) for empNumber=359
+2026-09-12 06:52:18,176 [INFO] Deleted users [106]
+2026-09-12 06:52:18,527 [INFO] Deleted employees [359]
