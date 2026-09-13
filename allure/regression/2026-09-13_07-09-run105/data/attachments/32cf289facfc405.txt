@@ -1,0 +1,2 @@
+2026-09-13 07:10:36,654 [INFO] Created employee Joseph Wagner -> empNumber=340
+2026-09-13 07:10:36,991 [INFO] Deleted employees [340]

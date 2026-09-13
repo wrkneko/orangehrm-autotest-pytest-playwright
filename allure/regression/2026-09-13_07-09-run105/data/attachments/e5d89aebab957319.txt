@@ -1,0 +1,4 @@
+2026-09-13 07:10:37,927 [INFO] Created employee Elizabeth Andersen -> empNumber=342
+2026-09-13 07:10:38,619 [INFO] Created user 'hooveralicia' (id=114) for empNumber=342
+2026-09-13 07:10:38,914 [INFO] Deleted users [114]
+2026-09-13 07:10:39,202 [INFO] Deleted employees [342]

@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Joseph Wagner -> empNumber=340
+INFO     src.api.api_client:api_client.py:104 Deleted employees [340]
