@@ -1,0 +1,2 @@
+2026-09-14 07:34:23,856 [INFO] Created employee David Lambert -> empNumber=537
+2026-09-14 07:34:24,183 [INFO] Deleted employees [537]
