@@ -1,0 +1,4 @@
+2026-09-15 07:12:26,102 [INFO] Created employee David Caldwell -> empNumber=317
+2026-09-15 07:12:26,689 [INFO] Created user 'jeffreychavez' (id=159) for empNumber=317
+2026-09-15 07:12:27,002 [INFO] Deleted users [159]
+2026-09-15 07:12:27,319 [INFO] Deleted employees [317]
