@@ -1,0 +1,2 @@
+2026-09-16 07:14:45,217 [INFO] Created employee Christopher Mack -> empNumber=349
+2026-09-16 07:14:45,475 [INFO] Deleted employees [349]
