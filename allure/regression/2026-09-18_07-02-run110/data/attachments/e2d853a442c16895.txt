@@ -1,0 +1,2 @@
+2026-09-18 07:03:36,160 [INFO] Created employee Stephanie Cross -> empNumber=402
+2026-09-18 07:03:36,473 [INFO] Deleted employees [402]

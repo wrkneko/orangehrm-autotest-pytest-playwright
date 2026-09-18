@@ -1,0 +1,4 @@
+2026-09-18 07:03:37,437 [INFO] Created employee Kelly Barnes -> empNumber=405
+2026-09-18 07:03:38,048 [INFO] Created user 'vanessavargas' (id=95) for empNumber=405
+2026-09-18 07:03:38,349 [INFO] Deleted users [95]
+2026-09-18 07:03:38,663 [INFO] Deleted employees [405]
