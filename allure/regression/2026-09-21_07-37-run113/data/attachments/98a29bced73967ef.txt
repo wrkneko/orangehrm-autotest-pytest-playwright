@@ -1,0 +1,2 @@
+2026-09-21 07:38:17,407 [INFO] Created employee Claire Craig -> empNumber=620
+2026-09-21 07:38:17,740 [INFO] Deleted employees [620]

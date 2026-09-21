@@ -1,0 +1,4 @@
+2026-09-21 07:38:18,843 [INFO] Created employee Dalton Foster -> empNumber=623
+2026-09-21 07:38:19,566 [INFO] Created user 'sarah82' (id=144) for empNumber=623
+2026-09-21 07:38:19,890 [INFO] Deleted users [144]
+2026-09-21 07:38:20,208 [INFO] Deleted employees [623]

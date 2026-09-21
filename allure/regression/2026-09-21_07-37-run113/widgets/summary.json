@@ -1,0 +1,1 @@
+{"reportName":"OrangeHRM regression","testRuns":[],"statistic":{"failed":1,"broken":3,"skipped":1,"passed":16,"unknown":0,"total":21},"time":{"start":1789976296655,"stop":1789976673802,"duration":377147,"minDuration":0,"maxDuration":30006,"sumDuration":192963}}

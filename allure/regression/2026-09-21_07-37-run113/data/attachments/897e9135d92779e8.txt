@@ -1,0 +1,4 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Dalton Foster -> empNumber=623
+INFO     src.api.api_client:api_client.py:84 Created user 'sarah82' (id=144) for empNumber=623
+INFO     src.api.api_client:api_client.py:115 Deleted users [144]
+INFO     src.api.api_client:api_client.py:104 Deleted employees [623]
