@@ -1,0 +1,4 @@
+2026-09-22 07:20:00,234 [INFO] Created employee Andrea Mclaughlin -> empNumber=359
+2026-09-22 07:20:11,767 [INFO] Created user 'taylorcynthia' (id=124) for empNumber=359
+2026-09-22 07:20:14,341 [INFO] Deleted users [124]
+2026-09-22 07:20:19,347 [INFO] Deleted employees [359]

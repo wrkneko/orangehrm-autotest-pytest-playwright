@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Ashlee Pham -> empNumber=358
+INFO     src.api.api_client:api_client.py:104 Deleted employees [358]

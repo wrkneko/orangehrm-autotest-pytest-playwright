@@ -1,0 +1,2 @@
+2026-09-22 07:19:50,157 [INFO] Created employee Ashlee Pham -> empNumber=358
+2026-09-22 07:19:55,463 [INFO] Deleted employees [358]
