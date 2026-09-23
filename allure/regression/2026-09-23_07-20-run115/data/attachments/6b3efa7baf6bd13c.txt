@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Ryan Ramirez -> empNumber=657
+INFO     src.api.api_client:api_client.py:104 Deleted employees [657]
