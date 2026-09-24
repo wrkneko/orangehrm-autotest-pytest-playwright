@@ -1,0 +1,4 @@
+2026-09-24 07:13:24,513 [INFO] Created employee Allison Hunt -> empNumber=356
+2026-09-24 07:13:35,418 [INFO] Created user 'tina73' (id=96) for empNumber=356
+2026-09-24 07:13:42,833 [INFO] Deleted users [96]
+2026-09-24 07:13:50,309 [INFO] Deleted employees [356]

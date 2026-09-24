@@ -1,0 +1,2 @@
+2026-09-24 07:13:13,306 [INFO] Created employee Judy Trujillo -> empNumber=355
+2026-09-24 07:13:19,847 [INFO] Deleted employees [355]

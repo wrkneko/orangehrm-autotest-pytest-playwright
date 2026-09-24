@@ -1,0 +1,6 @@
+2026-09-24 07:17:53,063 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+2026-09-24 07:17:59,913 [INFO] Filling 'username field': Admin
+2026-09-24 07:18:05,239 [INFO] Filling 'password field': admin123
+2026-09-24 07:18:05,246 [INFO] Clicking: Login button
+2026-09-24 07:18:36,445 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports
+2026-09-24 07:18:45,975 [INFO] Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports'> selector='internal:role=button[name="Add"i]'>
