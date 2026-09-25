@@ -1,0 +1,2 @@
+2026-09-25 07:08:19,529 [INFO] Created employee Gerald Jackson -> empNumber=336
+2026-09-25 07:08:23,160 [INFO] Deleted employees [336]

@@ -1,0 +1,4 @@
+2026-09-25 07:08:25,033 [INFO] Created employee Brooke Nichols -> empNumber=337
+2026-09-25 07:08:32,860 [INFO] Created user 'cheryl56' (id=104) for empNumber=337
+2026-09-25 07:08:36,128 [INFO] Deleted users [104]
+2026-09-25 07:08:37,830 [INFO] Deleted employees [337]

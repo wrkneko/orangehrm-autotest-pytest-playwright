@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Gerald Jackson -> empNumber=336
+INFO     src.api.api_client:api_client.py:104 Deleted employees [336]
