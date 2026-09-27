@@ -1,0 +1,2 @@
+2026-09-27 07:36:16,293 [INFO] Created employee Jose Garcia -> empNumber=336
+2026-09-27 07:36:16,659 [INFO] Deleted employees [336]
