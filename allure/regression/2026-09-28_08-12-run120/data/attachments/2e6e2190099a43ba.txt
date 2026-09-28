@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:68 Created employee James Harris -> empNumber=214
+INFO     src.api.api_client:api_client.py:104 Deleted employees [214]

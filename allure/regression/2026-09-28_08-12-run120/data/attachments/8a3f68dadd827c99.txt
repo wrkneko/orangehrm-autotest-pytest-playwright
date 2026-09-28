@@ -1,0 +1,2 @@
+2026-09-28 08:13:44,594 [INFO] Created employee Thomas Gomez -> empNumber=213
+2026-09-28 08:13:44,881 [INFO] Deleted employees [213]
