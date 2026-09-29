@@ -1,0 +1,4 @@
+2026-09-29 07:53:58,967 [INFO] Created employee Bradley Wang -> empNumber=605
+2026-09-29 07:54:00,157 [INFO] Created user 'qbrooks' (id=215) for empNumber=605
+2026-09-29 07:54:00,888 [INFO] Deleted users [215]
+2026-09-29 07:54:01,257 [INFO] Deleted employees [605]

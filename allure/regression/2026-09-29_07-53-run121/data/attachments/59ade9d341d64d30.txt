@@ -1,0 +1,4 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Bradley Wang -> empNumber=605
+INFO     src.api.api_client:api_client.py:84 Created user 'qbrooks' (id=215) for empNumber=605
+INFO     src.api.api_client:api_client.py:115 Deleted users [215]
+INFO     src.api.api_client:api_client.py:104 Deleted employees [605]
