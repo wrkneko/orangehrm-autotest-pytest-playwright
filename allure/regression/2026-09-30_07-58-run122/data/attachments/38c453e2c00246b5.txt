@@ -1,0 +1,4 @@
+2026-09-30 07:59:40,097 [INFO] Created employee Cesar Maldonado -> empNumber=576
+2026-09-30 07:59:40,858 [INFO] Created user 'richard44' (id=185) for empNumber=576
+2026-09-30 07:59:41,961 [INFO] Deleted users [185]
+2026-09-30 07:59:42,935 [INFO] Deleted employees [576]

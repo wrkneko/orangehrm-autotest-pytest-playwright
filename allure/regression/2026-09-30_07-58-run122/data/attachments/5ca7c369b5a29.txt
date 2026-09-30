@@ -1,0 +1,2 @@
+2026-09-30 07:59:36,976 [INFO] Created employee Andrew Ross -> empNumber=574
+2026-09-30 07:59:37,649 [INFO] Deleted employees [574]

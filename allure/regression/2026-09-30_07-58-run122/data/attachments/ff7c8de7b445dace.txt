@@ -1,0 +1,2 @@
+2026-09-30 07:59:39,047 [INFO] Created employee Derek Mcintosh -> empNumber=575
+2026-09-30 07:59:39,674 [INFO] Deleted employees [575]
