@@ -1,0 +1,2 @@
+2026-10-01 08:19:56,737 [INFO] Created employee Leah Farmer -> empNumber=246
+2026-10-01 08:19:57,593 [INFO] Deleted employees [246]
