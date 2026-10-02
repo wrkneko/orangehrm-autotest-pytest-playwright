@@ -1,0 +1,2 @@
+2026-10-02 07:56:44,661 [INFO] Created employee Linda May -> empNumber=406
+2026-10-02 07:56:44,966 [INFO] Deleted employees [406]

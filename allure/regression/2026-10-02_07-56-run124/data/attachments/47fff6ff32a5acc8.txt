@@ -1,0 +1,2 @@
+2026-10-02 07:56:45,259 [INFO] Created employee Morgan Romero -> empNumber=407
+2026-10-02 07:56:45,595 [INFO] Deleted employees [407]

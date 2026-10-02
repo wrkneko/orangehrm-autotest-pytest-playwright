@@ -1,0 +1,4 @@
+2026-10-02 07:56:45,883 [INFO] Created employee Kimberly Ellison -> empNumber=408
+2026-10-02 07:56:46,419 [INFO] Created user 'jdaniels' (id=146) for empNumber=408
+2026-10-02 07:56:46,700 [INFO] Deleted users [146]
+2026-10-02 07:56:46,977 [INFO] Deleted employees [408]
