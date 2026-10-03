@@ -1,0 +1,4 @@
+2026-10-03 07:35:39,193 [INFO] Created employee Audrey Johnson -> empNumber=243
+2026-10-03 07:35:39,730 [INFO] Created user 'russellbrenda' (id=79) for empNumber=243
+2026-10-03 07:35:39,987 [INFO] Deleted users [79]
+2026-10-03 07:35:40,253 [INFO] Deleted employees [243]
