@@ -1,0 +1,2 @@
+2026-10-04 07:46:45,561 [INFO] Created employee Dennis Gonzalez -> empNumber=302
+2026-10-04 07:46:45,870 [INFO] Deleted employees [302]
