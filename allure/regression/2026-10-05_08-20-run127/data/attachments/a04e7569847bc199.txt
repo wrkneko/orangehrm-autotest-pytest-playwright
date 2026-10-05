@@ -1,0 +1,2 @@
+2026-10-05 08:21:28,537 [INFO] Created employee Rebekah Welch -> empNumber=266
+2026-10-05 08:21:29,722 [INFO] Deleted employees [266]

@@ -1,0 +1,2 @@
+2026-10-05 08:21:30,733 [INFO] Created employee Robert Cummings -> empNumber=267
+2026-10-05 08:21:31,126 [INFO] Deleted employees [267]
