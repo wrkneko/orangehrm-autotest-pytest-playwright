@@ -1,0 +1,4 @@
+2026-10-06 08:34:17,664 [INFO] Created employee Michele Salas -> empNumber=272
+2026-10-06 08:34:18,215 [INFO] Created user 'ysmith' (id=66) for empNumber=272
+2026-10-06 08:34:18,496 [INFO] Deleted users [66]
+2026-10-06 08:34:18,802 [INFO] Deleted employees [272]

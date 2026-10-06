@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Sarah Roberts -> empNumber=270
+INFO     src.api.api_client:api_client.py:104 Deleted employees [270]

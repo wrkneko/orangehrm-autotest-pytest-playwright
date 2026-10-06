@@ -1,0 +1,2 @@
+2026-10-06 08:34:16,454 [INFO] Created employee Sarah Roberts -> empNumber=270
+2026-10-06 08:34:16,751 [INFO] Deleted employees [270]

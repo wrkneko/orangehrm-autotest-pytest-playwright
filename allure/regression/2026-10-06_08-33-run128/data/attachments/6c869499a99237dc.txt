@@ -1,0 +1,2 @@
+2026-10-06 08:34:17,061 [INFO] Created employee Lori Clark -> empNumber=271
+2026-10-06 08:34:17,356 [INFO] Deleted employees [271]
