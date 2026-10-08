@@ -1,0 +1,4 @@
+2026-10-08 08:26:04,862 [INFO] Created employee Abigail Perez -> empNumber=284
+2026-10-08 08:26:05,520 [INFO] Created user 'alewis' (id=71) for empNumber=284
+2026-10-08 08:26:05,824 [INFO] Deleted users [71]
+2026-10-08 08:26:06,136 [INFO] Deleted employees [284]

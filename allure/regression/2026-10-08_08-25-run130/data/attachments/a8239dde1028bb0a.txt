@@ -1,0 +1,2 @@
+2026-10-08 08:26:03,556 [INFO] Created employee Michael Wallace -> empNumber=282
+2026-10-08 08:26:03,877 [INFO] Deleted employees [282]
