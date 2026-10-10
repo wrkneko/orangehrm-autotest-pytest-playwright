@@ -1,0 +1,4 @@
+2026-10-10 08:07:05,379 [INFO] Created employee Christopher Sanchez -> empNumber=183
+2026-10-10 08:07:05,943 [INFO] Created user 'woodsphillip' (id=58) for empNumber=183
+2026-10-10 08:07:06,546 [INFO] Deleted users [58]
+2026-10-10 08:07:07,057 [INFO] Deleted employees [183]
