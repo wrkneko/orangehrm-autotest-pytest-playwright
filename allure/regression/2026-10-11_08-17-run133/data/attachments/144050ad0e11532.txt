@@ -1,0 +1,2 @@
+2026-10-11 08:19:00,504 [INFO] Created employee Ashley Terrell -> empNumber=1730
+2026-10-11 08:19:01,931 [INFO] Deleted employees [1730]
