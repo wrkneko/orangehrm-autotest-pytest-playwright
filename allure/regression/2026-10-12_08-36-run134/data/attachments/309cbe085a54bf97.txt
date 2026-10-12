@@ -1,0 +1,2 @@
+2026-10-12 08:37:38,630 [INFO] Created employee Diane Perez -> empNumber=322
+2026-10-12 08:37:39,073 [INFO] Deleted employees [322]

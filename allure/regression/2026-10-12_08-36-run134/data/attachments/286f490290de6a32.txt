@@ -1,0 +1,4 @@
+2026-10-12 08:37:40,854 [INFO] Created employee Connor Figueroa -> empNumber=324
+2026-10-12 08:37:41,730 [INFO] Created user 'nicholasgreen' (id=85) for empNumber=324
+2026-10-12 08:37:42,020 [INFO] Deleted users [85]
+2026-10-12 08:37:43,152 [INFO] Deleted employees [324]
