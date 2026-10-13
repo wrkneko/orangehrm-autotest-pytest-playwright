@@ -1,0 +1,3 @@
+INFO     src.pages.base_page:base_page.py:27 Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList
+INFO     src.pages.base_page:base_page.py:35 Filling 'employee name search': test
+INFO     src.pages.base_page:base_page.py:31 Clicking: Search button

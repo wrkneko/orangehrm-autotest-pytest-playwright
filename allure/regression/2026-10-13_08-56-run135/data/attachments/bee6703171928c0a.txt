@@ -1,0 +1,2 @@
+2026-10-13 08:57:18,863 [INFO] Created employee Albert Taylor -> empNumber=324
+2026-10-13 08:57:20,249 [INFO] Deleted employees [324]
