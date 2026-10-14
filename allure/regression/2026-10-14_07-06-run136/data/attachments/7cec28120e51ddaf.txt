@@ -1,0 +1,2 @@
+2026-10-14 07:06:46,700 [INFO] Created employee John Perez -> empNumber=431
+2026-10-14 07:06:47,521 [INFO] Deleted employees [431]

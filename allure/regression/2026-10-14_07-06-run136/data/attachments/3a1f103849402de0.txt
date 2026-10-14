@@ -1,0 +1,4 @@
+2026-10-14 07:06:49,444 [INFO] Created employee Suzanne Carrillo -> empNumber=433
+2026-10-14 07:06:50,742 [INFO] Created user 'michael60' (id=128) for empNumber=433
+2026-10-14 07:06:51,645 [INFO] Deleted users [128]
+2026-10-14 07:06:52,647 [INFO] Deleted employees [433]
