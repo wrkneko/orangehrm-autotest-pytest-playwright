@@ -1,0 +1,4 @@
+2026-10-15 06:58:29,256 [INFO] Created employee Gregory Jones -> empNumber=354
+2026-10-15 06:58:41,263 [INFO] Created user 'tcastro' (id=124) for empNumber=354
+2026-10-15 06:58:45,831 [INFO] Deleted users [124]
+2026-10-15 06:58:50,843 [INFO] Deleted employees [354]
