@@ -1,0 +1,2 @@
+2026-10-16 06:44:23,788 [INFO] Created employee Chelsea Richardson -> empNumber=252
+2026-10-16 06:44:24,647 [INFO] Deleted employees [252]

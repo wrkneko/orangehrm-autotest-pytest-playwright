@@ -1,0 +1,4 @@
+2026-10-16 06:44:25,883 [INFO] Created employee Megan Schultz -> empNumber=254
+2026-10-16 06:44:26,787 [INFO] Created user 'brendaholmes' (id=77) for empNumber=254
+2026-10-16 06:44:27,979 [INFO] Deleted users [77]
+2026-10-16 06:44:28,466 [INFO] Deleted employees [254]
