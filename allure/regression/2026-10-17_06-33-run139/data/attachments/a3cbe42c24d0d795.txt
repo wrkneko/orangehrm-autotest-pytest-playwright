@@ -1,0 +1,2 @@
+2026-10-17 06:34:04,396 [INFO] Created employee Lori Frank -> empNumber=240
+2026-10-17 06:34:04,842 [INFO] Deleted employees [240]

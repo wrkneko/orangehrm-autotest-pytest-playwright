@@ -1,0 +1,53 @@
+2026-10-17 06:34:18,154 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+2026-10-17 06:34:20,379 [INFO] Filling 'username field': Admin
+2026-10-17 06:34:20,717 [INFO] Filling 'password field': admin123
+2026-10-17 06:34:20,723 [INFO] Clicking: Login button
+2026-10-17 06:34:25,118 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee
+2026-10-17 06:34:25,510 [INFO] Filling 'first name': Tommy
+2026-10-17 06:34:26,310 [INFO] Filling 'last name': Dixon
+2026-10-17 06:34:26,319 [INFO] Filling 'employee id': 152221
+2026-10-17 06:34:26,325 [INFO] Clicking: Save button
+2026-10-17 06:34:31,848 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList
+2026-10-17 06:34:32,327 [INFO] Filling 'employee id search': 152221
+2026-10-17 06:34:33,130 [INFO] Clicking: Search button
+2026-10-17 06:34:34,987 [INFO] Clicking: employee row checkbox
+2026-10-17 06:34:35,006 [INFO] Clicking: Delete Selected button
+2026-10-17 06:34:35,038 [INFO] Clicking: Confirm delete button
+2026-10-17 06:34:35,876 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList
+2026-10-17 06:34:36,211 [INFO] Filling 'employee id search': 152221
+2026-10-17 06:34:36,533 [INFO] Clicking: Search button
+2026-10-17 06:34:37,389 [ERROR] Failed to clean up employee 152221
+Traceback (most recent call last):
+  File "/home/runner/work/orangehrm-autotest-pytest-playwright/orangehrm-autotest-pytest-playwright/conftest.py", line 129, in employee_cleanup
+    list_page.cleanup_employee(employee_id)
+  File "/home/runner/work/orangehrm-autotest-pytest-playwright/orangehrm-autotest-pytest-playwright/src/pages/pim/employee_pages.py", line 163, in cleanup_employee
+    if self.employee_exists(employee_id):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/orangehrm-autotest-pytest-playwright/orangehrm-autotest-pytest-playwright/src/pages/pim/employee_pages.py", line 157, in employee_exists
+    self.search_by_id(employee_id)
+  File "/home/runner/work/orangehrm-autotest-pytest-playwright/orangehrm-autotest-pytest-playwright/src/pages/pim/employee_pages.py", line 92, in search_by_id
+    self.wait_for_filtered_results(employee_id)
+  File "/home/runner/work/orangehrm-autotest-pytest-playwright/orangehrm-autotest-pytest-playwright/src/pages/pim/employee_pages.py", line 113, in wait_for_filtered_results
+    ).to_be_visible(timeout=timeout)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 23019, in to_be_visible
+    self._sync(
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 841, in to_be_visible
+    await self._expect_impl(
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 126, in _expect_impl
+    _record_soft_or_raise(
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 60, in _record_soft_or_raise
+    raise error
+AssertionError: Locator expected to be visible
+Actual value: None
+Error: strict mode violation: locator(".oxd-table-card").first.or_(get_by_text("No Records Found")) resolved to 2 elements:
+    1) <div data-v-f2168256="" class="oxd-table-card">…</div> aka locator(".oxd-table-card").first
+    2) <p data-v-7b563373="" data-v-35c8fe09="" class="oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text">No Records Found</p> aka get_by_text("No Records Found")
+ 
+Call log:
+  - Expect "to_be_visible" with timeout 15000ms
+  - waiting for locator(".oxd-table-card").first.or_(get_by_text("No Records Found"))
+
