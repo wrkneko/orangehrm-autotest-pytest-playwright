@@ -1,0 +1,4 @@
+2026-10-19 07:19:57,614 [INFO] Created employee Ann Mccormick -> empNumber=353
+2026-10-19 07:20:02,827 [INFO] Created user 'lowejonathan' (id=179) for empNumber=353
+2026-10-19 07:20:04,013 [INFO] Deleted users [179]
+2026-10-19 07:20:05,728 [INFO] Deleted employees [353]

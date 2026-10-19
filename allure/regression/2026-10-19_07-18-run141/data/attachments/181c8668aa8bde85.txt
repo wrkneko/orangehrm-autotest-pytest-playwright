@@ -1,0 +1,2 @@
+2026-10-19 07:19:47,807 [INFO] Created employee Alexander Brown -> empNumber=351
+2026-10-19 07:19:50,532 [INFO] Deleted employees [351]
