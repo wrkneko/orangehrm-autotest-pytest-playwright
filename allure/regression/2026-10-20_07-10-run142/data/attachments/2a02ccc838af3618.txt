@@ -1,0 +1,4 @@
+2026-10-20 07:11:10,259 [INFO] Created employee Marcus Hammond -> empNumber=339
+2026-10-20 07:11:11,142 [INFO] Created user 'colemanmark' (id=110) for empNumber=339
+2026-10-20 07:11:11,423 [INFO] Deleted users [110]
+2026-10-20 07:11:12,144 [INFO] Deleted employees [339]

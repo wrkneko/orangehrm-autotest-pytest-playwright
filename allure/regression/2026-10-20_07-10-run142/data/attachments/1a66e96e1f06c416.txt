@@ -1,0 +1,2 @@
+2026-10-20 07:11:08,515 [INFO] Created employee Alexandra Mclaughlin -> empNumber=338
+2026-10-20 07:11:09,504 [INFO] Deleted employees [338]
