@@ -1,0 +1,4 @@
+2026-10-22 07:06:42,441 [INFO] Created employee Amber Browning -> empNumber=342
+2026-10-22 07:06:51,828 [INFO] Created user 'michelle77' (id=164) for empNumber=342
+2026-10-22 07:06:56,255 [INFO] Deleted users [164]
+2026-10-22 07:07:00,244 [INFO] Deleted employees [342]
