@@ -1,0 +1,2 @@
+2026-10-24 06:52:51,146 [INFO] Created employee Rebecca Sandoval -> empNumber=260
+2026-10-24 06:52:51,636 [INFO] Deleted employees [260]

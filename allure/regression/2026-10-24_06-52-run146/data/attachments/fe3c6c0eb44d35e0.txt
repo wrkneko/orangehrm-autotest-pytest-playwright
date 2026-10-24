@@ -1,0 +1,4 @@
+2026-10-24 06:52:52,357 [INFO] Created employee Heather Peters -> empNumber=261
+2026-10-24 06:52:53,775 [INFO] Created user 'sharon60' (id=65) for empNumber=261
+2026-10-24 06:52:54,069 [INFO] Deleted users [65]
+2026-10-24 06:52:54,368 [INFO] Deleted employees [261]
