@@ -1,0 +1,2 @@
+2026-10-25 07:19:33,223 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+2026-10-25 07:20:13,044 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
