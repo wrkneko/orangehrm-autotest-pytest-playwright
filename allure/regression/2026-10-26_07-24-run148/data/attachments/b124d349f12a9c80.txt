@@ -1,0 +1,2 @@
+2026-10-26 07:25:15,873 [INFO] Created employee James Cameron -> empNumber=376
+2026-10-26 07:25:16,122 [INFO] Deleted employees [376]
