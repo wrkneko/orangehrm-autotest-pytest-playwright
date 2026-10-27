@@ -1,0 +1,2 @@
+2026-10-27 07:19:08,253 [INFO] Created employee Holly Lara -> empNumber=502
+2026-10-27 07:19:10,535 [INFO] Deleted employees [502]
