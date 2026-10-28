@@ -1,0 +1,2 @@
+2026-10-28 07:55:39,517 [INFO] Created employee Kelly Hancock -> empNumber=632
+2026-10-28 07:55:40,740 [INFO] Deleted employees [632]
