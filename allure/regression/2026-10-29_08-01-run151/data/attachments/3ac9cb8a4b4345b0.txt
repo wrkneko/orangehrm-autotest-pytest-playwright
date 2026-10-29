@@ -1,0 +1,4 @@
+2026-10-29 08:02:11,306 [INFO] Created employee Katie Vasquez -> empNumber=181
+2026-10-29 08:02:11,825 [INFO] Created user 'thomassandra' (id=57) for empNumber=181
+2026-10-29 08:02:12,060 [INFO] Deleted users [57]
+2026-10-29 08:02:12,306 [INFO] Deleted employees [181]

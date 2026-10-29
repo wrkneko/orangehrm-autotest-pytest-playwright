@@ -1,0 +1,4 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Katie Vasquez -> empNumber=181
+INFO     src.api.api_client:api_client.py:84 Created user 'thomassandra' (id=57) for empNumber=181
+INFO     src.api.api_client:api_client.py:115 Deleted users [57]
+INFO     src.api.api_client:api_client.py:104 Deleted employees [181]
