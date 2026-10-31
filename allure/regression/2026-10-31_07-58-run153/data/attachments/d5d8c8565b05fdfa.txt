@@ -1,0 +1,2 @@
+2026-10-31 07:59:49,823 [INFO] Created employee Michael Ramirez -> empNumber=321
+2026-10-31 07:59:53,140 [INFO] Deleted employees [321]

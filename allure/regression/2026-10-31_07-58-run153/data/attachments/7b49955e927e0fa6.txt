@@ -1,0 +1,1 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Tamara Alexander -> empNumber=323
