@@ -1,0 +1,2 @@
+2026-11-01 08:42:28,584 [INFO] Created employee Adam Lynch -> empNumber=236
+2026-11-01 08:42:28,846 [INFO] Deleted employees [236]

@@ -1,0 +1,2 @@
+2026-11-01 08:42:28,066 [INFO] Created employee Arthur Weaver -> empNumber=235
+2026-11-01 08:42:28,310 [INFO] Deleted employees [235]
