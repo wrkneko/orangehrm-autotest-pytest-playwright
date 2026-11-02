@@ -1,0 +1,2 @@
+2026-11-02 08:54:43,663 [INFO] Created employee Timothy Clark -> empNumber=441
+2026-11-02 08:54:44,449 [INFO] Deleted employees [441]
