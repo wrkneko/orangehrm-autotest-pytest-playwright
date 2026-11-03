@@ -1,0 +1,4 @@
+2026-11-03 09:01:09,636 [INFO] Created employee Felicia Castro -> empNumber=486
+2026-11-03 09:01:14,026 [INFO] Created user 'hwilson' (id=126) for empNumber=486
+2026-11-03 09:01:17,724 [INFO] Deleted users [126]
+2026-11-03 09:01:19,826 [INFO] Deleted employees [486]

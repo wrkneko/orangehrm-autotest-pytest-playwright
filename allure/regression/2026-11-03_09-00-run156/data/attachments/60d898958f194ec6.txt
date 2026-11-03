@@ -1,0 +1,2 @@
+2026-11-03 09:01:06,816 [INFO] Created employee Brendan Delgado -> empNumber=485
+2026-11-03 09:01:08,548 [INFO] Deleted employees [485]
