@@ -1,0 +1,2 @@
+2026-11-04 08:38:01,291 [INFO] Created employee Bruce Richards -> empNumber=345
+2026-11-04 08:38:01,832 [INFO] Deleted employees [345]

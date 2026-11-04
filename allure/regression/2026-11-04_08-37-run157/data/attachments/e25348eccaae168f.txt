@@ -1,0 +1,4 @@
+2026-11-04 08:38:02,819 [INFO] Created employee Hunter Gonzales -> empNumber=346
+2026-11-04 08:38:03,506 [INFO] Created user 'bnguyen' (id=73) for empNumber=346
+2026-11-04 08:38:04,109 [INFO] Deleted users [73]
+2026-11-04 08:38:04,378 [INFO] Deleted employees [346]

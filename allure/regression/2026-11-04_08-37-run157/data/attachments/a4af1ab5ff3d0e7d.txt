@@ -1,0 +1,2 @@
+2026-11-04 08:38:00,620 [INFO] Created employee Audrey Kelley -> empNumber=344
+2026-11-04 08:38:00,981 [INFO] Deleted employees [344]

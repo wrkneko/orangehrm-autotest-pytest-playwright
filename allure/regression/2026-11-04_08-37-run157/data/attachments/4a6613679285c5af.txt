@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Bruce Richards -> empNumber=345
+INFO     src.api.api_client:api_client.py:104 Deleted employees [345]
