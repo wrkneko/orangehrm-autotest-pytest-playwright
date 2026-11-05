@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Daniel Martinez -> empNumber=392
+INFO     src.api.api_client:api_client.py:104 Deleted employees [392]

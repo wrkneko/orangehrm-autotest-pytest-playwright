@@ -1,0 +1,2 @@
+2026-11-05 08:58:11,078 [INFO] Created employee Daniel Martinez -> empNumber=392
+2026-11-05 08:58:13,056 [INFO] Deleted employees [392]
