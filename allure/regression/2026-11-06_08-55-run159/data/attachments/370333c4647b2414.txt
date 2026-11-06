@@ -1,0 +1,8 @@
+2026-11-06 08:57:58,690 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports
+2026-11-06 08:57:59,523 [INFO] Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports'> selector='internal:role=button[name="Add"i]'>
+2026-11-06 08:58:04,071 [INFO] Filling 'Report name': Report Food 82857
+2026-11-06 08:58:05,016 [INFO] Clicking: Add selection criteria
+2026-11-06 08:58:05,055 [INFO] Filling 'Employee name': test
+2026-11-06 08:58:06,582 [INFO] Clicking: Add display field
+2026-11-06 08:58:06,618 [INFO] Clicking: Save report
+2026-11-06 08:58:07,479 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports
