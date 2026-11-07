@@ -1,0 +1,4 @@
+2026-11-07 08:19:42,792 [INFO] Created employee Holly Ryan -> empNumber=218
+2026-11-07 08:19:43,383 [INFO] Created user 'geoffreyaguilar' (id=60) for empNumber=218
+2026-11-07 08:19:43,670 [INFO] Deleted users [60]
+2026-11-07 08:19:44,230 [INFO] Deleted employees [218]
