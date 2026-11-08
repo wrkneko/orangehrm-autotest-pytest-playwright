@@ -1,0 +1,2 @@
+2026-11-08 08:36:48,504 [INFO] Created employee Michael Oneal -> empNumber=222
+2026-11-08 08:36:48,785 [INFO] Deleted employees [222]

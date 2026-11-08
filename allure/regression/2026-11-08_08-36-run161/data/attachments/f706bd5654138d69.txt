@@ -1,0 +1,4 @@
+2026-11-08 08:36:49,927 [INFO] Created employee Ashley Castillo -> empNumber=224
+2026-11-08 08:36:50,485 [INFO] Created user 'tthomas' (id=62) for empNumber=224
+2026-11-08 08:36:50,770 [INFO] Deleted users [62]
+2026-11-08 08:36:51,049 [INFO] Deleted employees [224]
