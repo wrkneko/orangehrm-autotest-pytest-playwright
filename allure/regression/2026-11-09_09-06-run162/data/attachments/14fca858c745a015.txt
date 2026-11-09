@@ -1,0 +1,2 @@
+2026-11-09 09:06:48,315 [INFO] Created employee Courtney Anderson -> empNumber=376
+2026-11-09 09:06:48,572 [INFO] Deleted employees [376]
