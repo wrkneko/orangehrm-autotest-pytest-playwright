@@ -1,0 +1,2 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Melissa Powers -> empNumber=571
+INFO     src.api.api_client:api_client.py:104 Deleted employees [571]

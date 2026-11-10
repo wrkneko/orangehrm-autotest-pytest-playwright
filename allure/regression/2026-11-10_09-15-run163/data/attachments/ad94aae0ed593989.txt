@@ -1,0 +1,14 @@
+2026-11-10 09:17:34,775 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+2026-11-10 09:17:37,634 [INFO] Filling 'username field': Admin
+2026-11-10 09:17:39,436 [INFO] Filling 'password field': admin123
+2026-11-10 09:17:39,442 [INFO] Clicking: Login button
+2026-11-10 09:17:53,459 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee
+2026-11-10 09:17:54,600 [INFO] Filling 'first name': Timothy
+2026-11-10 09:17:55,903 [INFO] Filling 'last name': Brady
+2026-11-10 09:17:55,913 [INFO] Filling 'employee id': 695147
+2026-11-10 09:17:55,917 [INFO] Clicking: Save button
+2026-11-10 09:18:07,406 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee
+2026-11-10 09:18:08,607 [INFO] Filling 'first name': Savannah
+2026-11-10 09:18:09,448 [INFO] Filling 'last name': Ortiz
+2026-11-10 09:18:09,459 [INFO] Filling 'employee id': 529856
+2026-11-10 09:18:09,464 [INFO] Clicking: Save button
