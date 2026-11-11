@@ -1,0 +1,4 @@
+2026-11-11 08:51:26,949 [INFO] Created employee Robert Maddox -> empNumber=271
+2026-11-11 08:51:30,029 [INFO] Created user 'ashleymoon' (id=101) for empNumber=271
+2026-11-11 08:51:31,654 [INFO] Deleted users [101]
+2026-11-11 08:51:32,726 [INFO] Deleted employees [271]

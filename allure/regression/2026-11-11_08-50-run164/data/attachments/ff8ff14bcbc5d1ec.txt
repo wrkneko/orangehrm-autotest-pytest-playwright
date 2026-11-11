@@ -1,0 +1,2 @@
+2026-11-11 08:51:23,759 [INFO] Created employee Isabella Burton -> empNumber=270
+2026-11-11 08:51:25,330 [INFO] Deleted employees [270]
