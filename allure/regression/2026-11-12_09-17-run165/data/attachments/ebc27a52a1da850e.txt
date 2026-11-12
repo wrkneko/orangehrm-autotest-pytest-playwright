@@ -1,0 +1,11 @@
+2026-11-12 09:22:11,126 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports
+2026-11-12 09:22:12,709 [INFO] Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports'> selector='internal:role=button[name="Add"i]'>
+2026-11-12 09:22:24,162 [INFO] Filling 'Report name': Report Month 40269
+2026-11-12 09:22:25,634 [INFO] Clicking: Add selection criteria
+2026-11-12 09:22:25,671 [INFO] Filling 'Employee name': test
+2026-11-12 09:22:28,184 [INFO] Clicking: Add display field
+2026-11-12 09:22:28,218 [INFO] Clicking: Save report
+2026-11-12 09:22:30,570 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports
+2026-11-12 09:22:34,635 [INFO] Clicking: Select report: Report Month 40269
+2026-11-12 09:22:34,652 [INFO] Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports'> selector='internal:role=button[name="Delete Selected"i]'>
+2026-11-12 09:22:34,685 [INFO] Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports'> selector='internal:role=button[name="Yes, Delete"i]'>

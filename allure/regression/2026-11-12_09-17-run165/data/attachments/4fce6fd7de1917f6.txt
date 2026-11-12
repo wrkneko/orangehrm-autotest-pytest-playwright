@@ -1,0 +1,4 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Gavin Tate -> empNumber=647
+INFO     src.api.api_client:api_client.py:84 Created user 'youngrobert' (id=127) for empNumber=647
+INFO     src.api.api_client:api_client.py:115 Deleted users [127]
+INFO     src.api.api_client:api_client.py:104 Deleted employees [647]

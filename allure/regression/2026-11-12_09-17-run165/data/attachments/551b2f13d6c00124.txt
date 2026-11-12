@@ -1,0 +1,2 @@
+2026-11-12 09:18:59,544 [INFO] Created employee Madison Flores -> empNumber=644
+2026-11-12 09:19:03,725 [INFO] Deleted employees [644]
