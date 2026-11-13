@@ -1,0 +1,2 @@
+2026-11-13 09:06:58,239 [INFO] Created employee Anthony Chung -> empNumber=274
+2026-11-13 09:07:04,946 [INFO] Deleted employees [274]
