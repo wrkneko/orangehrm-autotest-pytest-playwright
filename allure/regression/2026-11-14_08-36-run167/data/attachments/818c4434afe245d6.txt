@@ -1,0 +1,4 @@
+2026-11-14 08:37:28,577 [INFO] Created employee Joshua Torres -> empNumber=260
+2026-11-14 08:37:29,093 [INFO] Created user 'heatherbishop' (id=71) for empNumber=260
+2026-11-14 08:37:29,346 [INFO] Deleted users [71]
+2026-11-14 08:37:29,602 [INFO] Deleted employees [260]
