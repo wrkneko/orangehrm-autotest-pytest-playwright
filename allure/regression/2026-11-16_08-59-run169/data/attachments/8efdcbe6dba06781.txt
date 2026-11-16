@@ -1,0 +1,2 @@
+2026-11-16 09:00:18,355 [INFO] Created employee Emily Moore -> empNumber=446
+2026-11-16 09:00:19,642 [INFO] Deleted employees [446]

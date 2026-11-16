@@ -1,0 +1,2 @@
+2026-11-16 09:00:16,614 [INFO] Created employee Molly King -> empNumber=444
+2026-11-16 09:00:17,723 [INFO] Deleted employees [444]
