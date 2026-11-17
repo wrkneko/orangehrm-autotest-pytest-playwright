@@ -1,0 +1,2 @@
+2026-11-17 10:13:01,748 [INFO] Created employee Brian Washington -> empNumber=254
+2026-11-17 10:13:02,653 [INFO] Deleted employees [254]

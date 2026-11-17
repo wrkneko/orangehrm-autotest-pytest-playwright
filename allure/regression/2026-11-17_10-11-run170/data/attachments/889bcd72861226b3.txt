@@ -1,0 +1,2 @@
+2026-11-17 10:13:00,372 [INFO] Created employee Kevin Pierce -> empNumber=253
+2026-11-17 10:13:01,349 [INFO] Deleted employees [253]

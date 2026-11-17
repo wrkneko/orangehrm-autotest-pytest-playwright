@@ -1,0 +1,4 @@
+2026-11-17 10:13:03,555 [INFO] Created employee Calvin Wright -> empNumber=255
+2026-11-17 10:13:04,485 [INFO] Created user 'sfriedman' (id=73) for empNumber=255
+2026-11-17 10:13:05,232 [INFO] Deleted users [73]
+2026-11-17 10:13:06,263 [INFO] Deleted employees [255]
