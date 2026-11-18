@@ -1,0 +1,2 @@
+2026-11-18 09:50:11,036 [INFO] Created employee Paula Trujillo -> empNumber=455
+2026-11-18 09:50:11,410 [INFO] Deleted employees [455]
