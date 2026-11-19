@@ -1,0 +1,2 @@
+2026-11-19 09:53:48,742 [INFO] Created employee Stacey Huang -> empNumber=736
+2026-11-19 09:53:49,042 [INFO] Deleted employees [736]

@@ -1,0 +1,18 @@
+2026-11-19 09:54:04,551 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+2026-11-19 09:54:06,465 [INFO] Filling 'username field': Admin
+2026-11-19 09:54:06,794 [INFO] Filling 'password field': admin123
+2026-11-19 09:54:06,801 [INFO] Clicking: Login button
+2026-11-19 09:54:10,827 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee
+2026-11-19 09:54:11,389 [INFO] Filling 'first name': Devon
+2026-11-19 09:54:12,192 [INFO] Filling 'last name': Hartman
+2026-11-19 09:54:12,211 [INFO] Filling 'employee id': 457010
+2026-11-19 09:54:12,218 [INFO] Clicking: Save button
+2026-11-19 09:54:17,526 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList
+2026-11-19 09:54:17,868 [INFO] Filling 'employee id search': 457010
+2026-11-19 09:54:18,202 [INFO] Clicking: Search button
+2026-11-19 09:54:34,099 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList
+2026-11-19 09:54:34,611 [INFO] Filling 'employee id search': 457010
+2026-11-19 09:54:34,903 [INFO] Clicking: Search button
+2026-11-19 09:54:36,772 [INFO] Clicking: employee row checkbox
+2026-11-19 09:54:36,794 [INFO] Clicking: Delete Selected button
+2026-11-19 09:54:36,825 [INFO] Clicking: Confirm delete button

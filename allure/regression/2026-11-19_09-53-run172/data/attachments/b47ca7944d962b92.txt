@@ -1,0 +1,4 @@
+2026-11-19 09:53:50,084 [INFO] Created employee Stephanie Morse -> empNumber=738
+2026-11-19 09:53:50,753 [INFO] Created user 'osingleton' (id=183) for empNumber=738
+2026-11-19 09:53:51,295 [INFO] Deleted users [183]
+2026-11-19 09:53:51,639 [INFO] Deleted employees [738]
