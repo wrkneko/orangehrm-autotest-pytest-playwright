@@ -1,0 +1,2 @@
+2026-11-20 09:41:16,136 [INFO] Created employee Theresa Miller -> empNumber=595
+2026-11-20 09:41:17,233 [INFO] Deleted employees [595]
