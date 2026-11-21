@@ -1,0 +1,4 @@
+2026-11-21 09:14:33,756 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+2026-11-21 09:14:36,125 [INFO] Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/auth/login'> selector='internal:text="Forgot your password?"s'>
+2026-11-21 09:14:36,911 [INFO] Filling 'Username field empty': 
+2026-11-21 09:14:37,210 [INFO] Clicking: Reset Password button
