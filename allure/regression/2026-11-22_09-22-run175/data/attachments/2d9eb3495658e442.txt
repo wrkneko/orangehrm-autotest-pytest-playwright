@@ -1,0 +1,2 @@
+2026-11-22 09:22:43,161 [INFO] Created employee Michael Green -> empNumber=324
+2026-11-22 09:22:43,513 [INFO] Deleted employees [324]

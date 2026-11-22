@@ -1,0 +1,4 @@
+2026-11-22 09:22:43,899 [INFO] Created employee Gabriel Johnson -> empNumber=325
+2026-11-22 09:22:44,445 [INFO] Created user 'cynthiaward' (id=86) for empNumber=325
+2026-11-22 09:22:44,719 [INFO] Deleted users [86]
+2026-11-22 09:22:45,022 [INFO] Deleted employees [325]

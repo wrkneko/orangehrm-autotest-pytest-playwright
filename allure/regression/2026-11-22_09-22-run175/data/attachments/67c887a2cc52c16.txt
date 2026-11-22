@@ -1,0 +1,2 @@
+2026-11-22 09:22:41,958 [INFO] Created employee Andrew Romero -> empNumber=323
+2026-11-22 09:22:42,353 [INFO] Deleted employees [323]
