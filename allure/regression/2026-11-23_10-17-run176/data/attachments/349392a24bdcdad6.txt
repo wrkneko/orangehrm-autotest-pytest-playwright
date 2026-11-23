@@ -1,0 +1,4 @@
+INFO     src.api.api_client:api_client.py:68 Created employee Krista Hill -> empNumber=504
+INFO     src.api.api_client:api_client.py:84 Created user 'whitney21' (id=327) for empNumber=504
+INFO     src.api.api_client:api_client.py:115 Deleted users [327]
+INFO     src.api.api_client:api_client.py:104 Deleted employees [504]

@@ -1,0 +1,2 @@
+2026-11-23 10:18:57,854 [INFO] Created employee Amber Pham -> empNumber=503
+2026-11-23 10:18:59,720 [INFO] Deleted employees [503]

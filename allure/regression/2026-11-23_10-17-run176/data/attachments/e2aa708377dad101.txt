@@ -1,0 +1,4 @@
+2026-11-23 10:19:01,525 [INFO] Created employee Krista Hill -> empNumber=504
+2026-11-23 10:19:07,548 [INFO] Created user 'whitney21' (id=327) for empNumber=504
+2026-11-23 10:19:09,545 [INFO] Deleted users [327]
+2026-11-23 10:19:11,242 [INFO] Deleted employees [504]

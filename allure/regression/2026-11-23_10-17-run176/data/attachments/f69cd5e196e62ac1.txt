@@ -1,0 +1,2 @@
+2026-11-23 10:18:47,721 [INFO] Created employee Maria Davis -> empNumber=502
+2026-11-23 10:18:55,158 [INFO] Deleted employees [502]
