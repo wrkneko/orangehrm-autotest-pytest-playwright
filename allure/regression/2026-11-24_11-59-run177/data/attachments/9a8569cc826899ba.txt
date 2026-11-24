@@ -1,0 +1,2 @@
+2026-11-24 12:00:40,873 [INFO] Created employee Lisa Jenkins -> empNumber=169
+2026-11-24 12:00:41,249 [INFO] Deleted employees [169]
