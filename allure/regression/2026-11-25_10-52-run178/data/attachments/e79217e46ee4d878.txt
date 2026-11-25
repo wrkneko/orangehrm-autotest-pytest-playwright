@@ -1,0 +1,19 @@
+2026-11-25 10:57:01,011 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports
+2026-11-25 10:57:03,818 [INFO] Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports'> selector='internal:role=button[name="Add"i]'>
+2026-11-25 10:57:15,082 [INFO] Filling 'Report name': Report Keep 92430
+2026-11-25 10:57:17,093 [INFO] Clicking: Add selection criteria
+2026-11-25 10:57:17,133 [INFO] Filling 'Employee name': test
+2026-11-25 10:57:22,192 [INFO] Clicking: Add display field
+2026-11-25 10:57:22,228 [INFO] Clicking: Save report
+2026-11-25 10:57:26,651 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports
+2026-11-25 10:57:34,402 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports
+2026-11-25 10:57:38,994 [INFO] Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports'> selector='internal:role=button[name="Add"i]'>
+2026-11-25 10:57:50,838 [INFO] Filling 'Report name': Report Tough 41739
+2026-11-25 10:57:54,458 [INFO] Clicking: Add selection criteria
+2026-11-25 10:57:54,499 [INFO] Filling 'Employee name': test
+2026-11-25 10:57:57,541 [INFO] Clicking: Add display field
+2026-11-25 10:57:57,577 [INFO] Clicking: Save report
+2026-11-25 10:57:59,968 [INFO] Navigating to https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports
+2026-11-25 10:58:04,158 [INFO] Clicking: Select report: Report Tough 41739
+2026-11-25 10:58:04,176 [INFO] Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports'> selector='internal:role=button[name="Delete Selected"i]'>
+2026-11-25 10:58:04,244 [INFO] Clicking: <Locator frame=<Frame name= url='https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewDefinedPredefinedReports'> selector='internal:role=button[name="Yes, Delete"i]'>

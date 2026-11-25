@@ -1,0 +1,2 @@
+2026-11-25 10:53:17,645 [INFO] Created employee Jonathan Jackson -> empNumber=424
+2026-11-25 10:53:21,121 [INFO] Deleted employees [424]
