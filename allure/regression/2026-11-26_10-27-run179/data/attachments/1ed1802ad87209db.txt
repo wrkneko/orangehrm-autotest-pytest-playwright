@@ -1,0 +1,4 @@
+2026-11-26 10:28:31,922 [INFO] Created employee Isaac Hodges -> empNumber=303
+2026-11-26 10:28:32,600 [INFO] Created user 'greenejohnny' (id=104) for empNumber=303
+2026-11-26 10:28:32,896 [INFO] Deleted users [104]
+2026-11-26 10:28:33,636 [INFO] Deleted employees [303]
