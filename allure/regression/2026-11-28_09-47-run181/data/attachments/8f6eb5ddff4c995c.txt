@@ -1,0 +1,2 @@
+2026-11-28 09:48:08,300 [INFO] Created employee Michelle Harris -> empNumber=359
+2026-11-28 09:48:08,608 [INFO] Deleted employees [359]

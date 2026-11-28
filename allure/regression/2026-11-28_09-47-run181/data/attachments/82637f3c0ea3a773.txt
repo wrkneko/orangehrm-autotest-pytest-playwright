@@ -1,0 +1,4 @@
+2026-11-28 09:48:10,443 [INFO] Created employee Rose Phillips -> empNumber=362
+2026-11-28 09:48:11,298 [INFO] Created user 'jonathanalexander' (id=173) for empNumber=362
+2026-11-28 09:48:11,644 [INFO] Deleted users [173]
+2026-11-28 09:48:11,977 [INFO] Deleted employees [362]

@@ -1,0 +1,2 @@
+2026-11-28 09:48:08,941 [INFO] Created employee Michelle Lynch -> empNumber=360
+2026-11-28 09:48:09,539 [INFO] Deleted employees [360]
